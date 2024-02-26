@@ -6,23 +6,19 @@
   .contentContainer {
     display: flex;
     .formContainer {
-      flex: 0.75;
+      flex: 1;
       padding: 2%;
     }
 
-    .productInfoContainer {
-      flex: 0.5;
-      padding: 2%;
-    }
   }
 
-  .actionContainer{
+  .actionContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
 
-    button{
+    button {
       width: 50%;
     }
   }
