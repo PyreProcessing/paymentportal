@@ -1,0 +1,19 @@
+.container{
+  margin: 2% 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .section{
+    display: flex;
+    .linksContainer{
+      display: flex;
+      gap: 20px;
+
+      .link{
+        font-size: 14px;
+      }
+    }
+  }
+}

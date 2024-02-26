@@ -1,0 +1,14 @@
+.container {
+  border: 1px solid white;
+  min-height: 30rem;
+  margin: 0 auto;
+  background-color: white;
+  padding: 2%;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+
+  .stepsContainer {
+    // override .ant-steps-item-title color
+  }
+}
