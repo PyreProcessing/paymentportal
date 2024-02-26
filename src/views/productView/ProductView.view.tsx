@@ -1,23 +1,16 @@
 "use client";
 import React from "react";
 import styles from "./ProductView.module.scss";
-import inventory from "@/data/mock-inventory";
-import { useParams } from "next/navigation";
 import { Button } from "antd";
-import ProductInformationCart from "./subViews/ProductInformationCart.component";
+import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
 import PaymentInformation from "./subViews/PaymentInformation.component";
 import ShippingInformation from "./subViews/ShippingInformation.component";
 import Review from "./subViews/Review.component";
 import { useCartStore } from "@/state/cart";
 import { AnimatePresence, motion } from "framer-motion";
-import MainWrapper from "@/layouts/mainWrapper/MainWrapper.layout";
 
 const ProductView = () => {
-  // get the params from the router
-  const { id } = useParams();
-  // find the product by id
-  const product = inventory.find((p) => p.id === Number(id));
-  const { step, setStep, advanceToNextSignUpStep, goBackToPreviousSignUpStep, isGoingToPreviousStep } = useCartStore();
+  const { step, cart, advanceToNextSignUpStep, goBackToPreviousSignUpStep, isGoingToPreviousStep } = useCartStore();
   const steps = [
     {
       title: "Cart",
@@ -25,7 +18,7 @@ const ProductView = () => {
       nextButtonText: "Proceed to Payment",
       hideBackButton: true,
       hideNextButton: false,
-      nextButtonDisabled: false,
+      nextButtonDisabled: cart.length === 0,
       nextButtonAction: () => advanceToNextSignUpStep(),
     },
     {
@@ -84,9 +77,7 @@ const ProductView = () => {
             }}
             key={step}
           >
-            <MainWrapper title={steps[step]?.title} description={`steps[step]?.description`}>
-              {steps[step]?.component}
-            </MainWrapper>
+            {steps[step]?.component}
           </motion.div>
         </AnimatePresence>
       </div>
