@@ -4,7 +4,8 @@ import { create } from "zustand";
 interface Layout {
   step: number;
   setStep: (step: number) => void;
-  cart: ProductType[];
+  cart: [{ product: ProductType; quantity: number }] | [];
+  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => void;
   isGoingToPreviousStep: boolean;
   goBackToPreviousSignUpStep: () => void;
   signUpErrorDetected: boolean;
@@ -15,6 +16,7 @@ export const useCartStore = create<Layout>((set) => ({
   step: 0,
   setStep: (step: number) => set({ step }),
   cart: [],
+  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => set({ cart }),
   isGoingToPreviousStep: false,
   signUpErrorDetected: false,
   goBackToPreviousSignUpStep: () => {

@@ -5,7 +5,7 @@ export default interface ProductType {
   shortDescription: string;
   description: string;
   image: string[];
-  quantity?: number;
+  quantity: number;
   category?: string;
   tags?: string[];
   rating?: number;
@@ -14,4 +14,5 @@ export default interface ProductType {
   warranty?: string;
   // property for if the item is always in stock, i.e. not limited, customer can order as many as they want
   noLimit?: boolean;
+  limit?: number;
 }
