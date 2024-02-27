@@ -10,6 +10,7 @@ interface Layout {
   goBackToPreviousSignUpStep: () => void;
   signUpErrorDetected: boolean;
   advanceToNextSignUpStep: () => void;
+  removeProductFromCart: (productId: string) => void;
 }
 
 export const useCartStore = create<Layout>((set) => ({
@@ -34,6 +35,13 @@ export const useCartStore = create<Layout>((set) => ({
         signUpErrorDetected: true,
         step: state.step + 1,
         isGoingToPreviousStep: false,
+      };
+    });
+  },
+  removeProductFromCart: (productId: string) => {
+    set((state: any) => {
+      return {
+        cart: state.cart.filter((item: { product: ProductType; quantity: number }) => item.product._id !== productId),
       };
     });
   },

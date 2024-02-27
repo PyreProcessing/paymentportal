@@ -1,7 +1,7 @@
 import ProductType from "../types/ProductType";
 export default [
   {
-    id: 1,
+    _id: "1",
     name: "Syngasifier 1",
     price: 100,
     shortDescription:
@@ -12,7 +12,7 @@ export default [
     quantity: 0,
   },
   {
-    id: 2,
+    _id: "2",
     name: "Syngasifier 2",
     price: 200,
     shortDescription:
@@ -23,7 +23,7 @@ export default [
     limit: 3,
   },
   {
-    id: 3,
+    _id: "3",
     name: "Syngasifier 3",
     price: 300,
     shortDescription:
