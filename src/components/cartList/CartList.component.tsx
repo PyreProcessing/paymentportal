@@ -59,7 +59,7 @@ const CartList = () => {
             },
           ]}
           dataSource={cart}
-          rowKey="product._id"
+          rowKey={(record) => record.product._id}
           pagination={false}
         />
       </div>

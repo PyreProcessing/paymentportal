@@ -3,23 +3,30 @@ import { create } from "zustand";
 
 interface Layout {
   step: number;
-  setStep: (step: number) => void;
   cart: [{ product: ProductType; quantity: number }] | [];
-  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => void;
   isGoingToPreviousStep: boolean;
-  goBackToPreviousSignUpStep: () => void;
   signUpErrorDetected: boolean;
+  currentForm: any;
+  paymentInformationValues: any;
+  setPaymentInformationValues: (values: any) => void;
+  setStep: (step: number) => void;
+  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => void;
+  goBackToPreviousSignUpStep: () => void;
   advanceToNextSignUpStep: () => void;
   removeProductFromCart: (productId: string) => void;
+  setCurrentForm: (form: any) => void;
 }
 
 export const useCartStore = create<Layout>((set) => ({
   step: 0,
-  setStep: (step: number) => set({ step }),
   cart: [],
-  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => set({ cart }),
   isGoingToPreviousStep: false,
   signUpErrorDetected: false,
+  currentForm: {},
+  paymentInformationValues: {},
+  setPaymentInformationValues: (values: any) => set({ paymentInformationValues: values }),
+  setStep: (step: number) => set({ step }),
+  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => set({ cart }),
   goBackToPreviousSignUpStep: () => {
     set((state: any) => {
       return {
@@ -45,4 +52,5 @@ export const useCartStore = create<Layout>((set) => ({
       };
     });
   },
+  setCurrentForm: (form: any) => set({ currentForm: form }),
 }));

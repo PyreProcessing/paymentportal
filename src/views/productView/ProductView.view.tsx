@@ -1,16 +1,26 @@
 "use client";
 import React from "react";
 import styles from "./ProductView.module.scss";
-import { Button } from "antd";
+import { Button, message } from "antd";
 import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
 import PaymentInformation from "./subViews/paymentInformation/PaymentInformation.component";
 import ShippingInformation from "./subViews/ShippingInformation.component";
 import Review from "./subViews/Review.component";
 import { useCartStore } from "@/state/cart";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m, motion } from "framer-motion";
+import { validateForm } from "@/utils/validateForm";
 
 const ProductView = () => {
-  const { step, cart, advanceToNextSignUpStep, goBackToPreviousSignUpStep, isGoingToPreviousStep } = useCartStore();
+  const {
+    step,
+    cart,
+    advanceToNextSignUpStep,
+    goBackToPreviousSignUpStep,
+    isGoingToPreviousStep,
+    setStep,
+    currentForm,
+    setPaymentInformationValues,
+  } = useCartStore();
   const steps = [
     {
       title: "Cart",
@@ -28,7 +38,12 @@ const ProductView = () => {
       backButtonText: "Back to Cart",
       hideNextButton: false,
       nextButtonDisabled: false,
-      nextButtonAction: () => advanceToNextSignUpStep(),
+      nextButtonAction: async () => {
+        if (await validateForm(currentForm)) {
+          setPaymentInformationValues(currentForm.getFieldsValue());
+          advanceToNextSignUpStep();
+        } else message.error("Please fill out the form correctly");
+      },
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
     {
@@ -51,6 +66,14 @@ const ProductView = () => {
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
   ];
+
+  // check the cart length, if at any point the cart is empty, go back to the first step
+  React.useEffect(() => {
+    if (cart.length === 0) {
+      setStep(0);
+    }
+  }, [cart]);
+
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>

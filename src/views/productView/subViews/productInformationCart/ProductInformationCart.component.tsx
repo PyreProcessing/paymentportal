@@ -20,6 +20,7 @@ const ProductInformationCart = () => {
 
   const addToCart = (values: any) => {
     if (!product || !values.quantity) return;
+    if (Number(values.quantity) === 0) return;
     const productIndex = cart.findIndex((p) => p.product._id === product?._id);
     const newCart = [...cart];
     if (productIndex !== -1) {
@@ -86,7 +87,7 @@ const ProductInformationCart = () => {
               max={product?.limit ?? product.quantity}
               // dont allow the user to go below 0
               min={0}
-              disabled={product?.noLimit ? false : product?.quantity === 0}
+              disabled={product?.noLimit ? false : product?.quantity === 0 || product?.outOfStock}
             />
           </Form.Item>
 
