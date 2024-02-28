@@ -50,7 +50,10 @@ const CartList = () => {
               key: "actions",
               render: (value: string, record: { product: ProductType; quantity: number }) => (
                 <div className={styles.actionsContainer}>
-                  <FaTimes className={`${styles.icon} ${styles.remove}`} onClick={() => removeProductFromCart(record?.product?._id)} />
+                  <FaTimes
+                    className={`${styles.icon} ${styles.remove}`}
+                    onClick={() => removeProductFromCart(record?.product?._id)}
+                  />
                 </div>
               ),
             },
@@ -59,6 +62,17 @@ const CartList = () => {
           rowKey="product._id"
           pagination={false}
         />
+      </div>
+      {/* shipping price container */}
+      <div className={styles.shippingPriceContainer}>
+        <h4>Shipping</h4>
+        <span>$0.00</span>
+      </div>
+
+      {/* total price container */}
+      <div className={styles.totalPriceContainer}>
+        <h4>Total</h4>
+        <span>${cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0).toFixed(2)}</span>
       </div>
     </div>
   );

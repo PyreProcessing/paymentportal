@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./ProductView.module.scss";
 import { Button } from "antd";
 import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
-import PaymentInformation from "./subViews/PaymentInformation.component";
+import PaymentInformation from "./subViews/paymentInformation/PaymentInformation.component";
 import ShippingInformation from "./subViews/ShippingInformation.component";
 import Review from "./subViews/Review.component";
 import { useCartStore } from "@/state/cart";

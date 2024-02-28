@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+
+  .formContainer {
+    flex: 1;
+    padding: 2%;
+  }
+
+  .cartContainer {
+    flex: 0.5;
+  }
+}
