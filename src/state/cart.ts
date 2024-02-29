@@ -8,11 +8,17 @@ interface Layout {
   signUpErrorDetected: boolean;
   currentForm: any;
   paymentInformationValues: any;
+  billingInformationValues: any;
+  shippingInformationValues: any;
+  userInformationValues: any;
+  setUserInformationValues: (values: any) => void;
   setPaymentInformationValues: (values: any) => void;
+  setBillingInformationValues: (values: any) => void;
+  setShippingInformationValues: (values: any) => void;
   setStep: (step: number) => void;
   setCart: (cart: [{ product: ProductType; quantity: number }] | []) => void;
   goBackToPreviousSignUpStep: () => void;
-  advanceToNextSignUpStep: () => void;
+  advanceToNextSignUpStep: (index?: number) => void;
   removeProductFromCart: (productId: string) => void;
   setCurrentForm: (form: any) => void;
 }
@@ -24,6 +30,10 @@ export const useCartStore = create<Layout>((set) => ({
   signUpErrorDetected: false,
   currentForm: {},
   paymentInformationValues: {},
+  billingInformationValues: {},
+  shippingInformationValues: {},
+  userInformationValues: {},
+  setUserInformationValues: (values: any) => set({ userInformationValues: values }),
   setPaymentInformationValues: (values: any) => set({ paymentInformationValues: values }),
   setStep: (step: number) => set({ step }),
   setCart: (cart: [{ product: ProductType; quantity: number }] | []) => set({ cart }),
@@ -36,11 +46,11 @@ export const useCartStore = create<Layout>((set) => ({
       };
     });
   },
-  advanceToNextSignUpStep: () => {
+  advanceToNextSignUpStep: (index?: number) => {
     set((state: any) => {
       return {
         signUpErrorDetected: true,
-        step: state.step + 1,
+        step: index ? index : state.step + 1,
         isGoingToPreviousStep: false,
       };
     });
@@ -53,4 +63,6 @@ export const useCartStore = create<Layout>((set) => ({
     });
   },
   setCurrentForm: (form: any) => set({ currentForm: form }),
+  setBillingInformationValues: (values: any) => set({ billingInformationValues: values }),
+  setShippingInformationValues: (values: any) => set({ shippingInformationValues: values }),
 }));

@@ -1,5 +1,5 @@
 import React from "react";
-import { Divider, Form, Input, InputNumber, Select } from "antd";
+import { Checkbox, Divider, Form, Input, InputNumber, Select } from "antd";
 import styles from "./index.module.scss";
 import formStyles from "@/styles/form.module.scss";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
@@ -33,7 +33,7 @@ const PaymentInformation = () => {
             <div className={formStyles.form__inputGroup}>
               <Form.Item
                 label="Email"
-                name="email"
+                name={["userInfo", "email"]}
                 className={formStyles.form__label}
                 rules={[
                   {
@@ -51,7 +51,7 @@ const PaymentInformation = () => {
             </div>
             <div className={formStyles.form__inputGroup}>
               <Form.Item
-                name="phoneNumber"
+                name={["userInfo", "phoneNumber"]}
                 label="Phone Number"
                 initialValue=""
                 rules={[
@@ -77,7 +77,7 @@ const PaymentInformation = () => {
             <div className={formStyles.form__inputGroup}>
               <Form.Item
                 label="First Name"
-                name="firstName"
+                name={["billing", "firstName"]}
                 className={formStyles.form__label}
                 rules={[{ required: true, message: "Please enter a name for the order" }]}
               >
@@ -85,14 +85,14 @@ const PaymentInformation = () => {
               </Form.Item>
             </div>
             <div className={formStyles.form__inputGroup}>
-              <Form.Item label="Last Name" name="lastName" className={formStyles.form__label}>
+              <Form.Item label="Last Name" name={["billing", "lastName"]} className={formStyles.form__label}>
                 <Input value={form.getFieldsValue().firstName} placeholder="Doe" />
               </Form.Item>
             </div>
           </div>
           <div className={formStyles.form__formGroup}>
             <div className={formStyles.form__inputGroup}>
-              <Form.Item label="Company Name" name="company" className={formStyles.form__label}>
+              <Form.Item label="Company Name" name={["billing", "company"]} className={formStyles.form__label}>
                 <Input value={form.getFieldsValue().company} className={formStyles.form__select} />
               </Form.Item>
             </div>
@@ -101,7 +101,7 @@ const PaymentInformation = () => {
             <div className={formStyles.form__inputGroup}>
               <Form.Item
                 label="Address"
-                name="address"
+                name={["billing", "address"]}
                 className={formStyles.form__label}
                 rules={[{ required: true, message: "Please enter an address" }]}
               >
@@ -111,7 +111,7 @@ const PaymentInformation = () => {
             <div className={formStyles.form__inputGroup}>
               <Form.Item
                 label="City"
-                name="city"
+                name={["billing", "city"]}
                 className={formStyles.form__label}
                 rules={[{ required: true, message: "Please enter a city location" }]}
               >
@@ -121,7 +121,7 @@ const PaymentInformation = () => {
           </div>
           <div className={formStyles.form__formGroup}>
             <div className={formStyles.form__inputGroup}>
-              <Form.Item label="Country" name="country" className={formStyles.form__label}>
+              <Form.Item label="Country" name={["billing", "country"]} className={formStyles.form__label}>
                 <Select
                   value={form.getFieldsValue().country}
                   className={formStyles.form__select}
@@ -132,18 +132,25 @@ const PaymentInformation = () => {
               </Form.Item>
             </div>
             <div className={formStyles.form__inputGroup}>
-              <Form.Item label="Zip Code" name="zipcode" className={formStyles.form__label}>
+              <Form.Item label="Zip Code" name={["billing", "zipcode"]} className={formStyles.form__label}>
                 <Input value={form.getFieldsValue().zipcode} />
               </Form.Item>
             </div>
           </div>
           <div className={formStyles.form__formGroup}>
             <div className={formStyles.form__inputGroup}>
-              <Form.Item label="Special Instructions" name="special" className={formStyles.form__label}>
+              <Form.Item label="Special Instructions" name={["userInfo", "special"]} className={formStyles.form__label}>
                 <Input.TextArea
                   value={form.getFieldsValue().special}
                   placeholder="Add any special instructions for the order"
                 />
+              </Form.Item>
+            </div>
+          </div>
+          <div className={formStyles.form__formGroup}>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item name={["userInfo", "sameAsShipping"]} valuePropName="checked" noStyle>
+                <Checkbox>Shipping address, Same as billing?</Checkbox>
               </Form.Item>
             </div>
           </div>

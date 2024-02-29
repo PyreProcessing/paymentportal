@@ -20,6 +20,9 @@ const ProductView = () => {
     setStep,
     currentForm,
     setPaymentInformationValues,
+    setBillingInformationValues,
+    setShippingInformationValues,
+    setUserInformationValues,
   } = useCartStore();
   const steps = [
     {
@@ -40,7 +43,15 @@ const ProductView = () => {
       nextButtonDisabled: false,
       nextButtonAction: async () => {
         if (await validateForm(currentForm)) {
-          setPaymentInformationValues(currentForm.getFieldsValue());
+          setUserInformationValues(currentForm.getFieldsValue().userInfo);
+          setPaymentInformationValues(currentForm.getFieldsValue().paymentInformation);
+          setBillingInformationValues(currentForm.getFieldsValue().billing);
+          // if the shipping information is the same as the billing information, skip the shipping step
+          if (currentForm.getFieldsValue().userInfo.sameAsShipping) {
+            setShippingInformationValues(currentForm.getFieldsValue().billing);
+            advanceToNextSignUpStep(3);
+            return;
+          }
           advanceToNextSignUpStep();
         } else message.error("Please fill out the form correctly");
       },
@@ -63,6 +74,7 @@ const ProductView = () => {
       backButtonText: "Back to Shipping",
       hideNextButton: false,
       nextButtonDisabled: false,
+      hideBackButton: false,
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
   ];
