@@ -3,9 +3,10 @@ import { useCartStore } from "@/state/cart";
 import { Checkbox, Divider, Form, Input, Select } from "antd";
 import formStyles from "@/styles/form.module.scss";
 import { countries } from "@/data/countries";
+import states from "@/data/states";
 
 const ShippingInformation = () => {
-  const { userInformationValues, billingInformationValues } = useCartStore();
+  const { userInformationValues, billingInformationValues, shippingInformationValues, setCurrentForm } = useCartStore();
   const [form] = Form.useForm();
 
   // if the value in 'sameAsShipping' is true, set the form values to the billing information
@@ -13,7 +14,9 @@ const ShippingInformation = () => {
     if (userInformationValues.sameAsShipping) {
       form.setFieldsValue(billingInformationValues);
     }
-  }, [userInformationValues.sameAsShipping]);
+    form.setFieldsValue(shippingInformationValues);
+    setCurrentForm(form);
+  }, [userInformationValues.sameAsShipping, form]);
   return (
     <div>
       <Divider orientation="center">Shipping Information</Divider>
@@ -80,6 +83,18 @@ const ShippingInformation = () => {
                 options={countries.map((country) => {
                   return { label: country, value: country };
                 })}
+              />
+            </Form.Item>
+          </div>
+          <div className={formStyles.form__inputGroup}>
+            <Form.Item label="State" name={["billing", "state"]} className={formStyles.form__label}>
+              <Select
+                value={form.getFieldsValue().state}
+                className={formStyles.form__select}
+                options={states.map((state) => {
+                  return { label: state.name, value: `${state.name} (${state.abbreviation})` };
+                })}
+                showSearch
               />
             </Form.Item>
           </div>

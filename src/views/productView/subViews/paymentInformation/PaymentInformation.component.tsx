@@ -6,17 +6,24 @@ import formatPhoneNumber from "@/utils/formatPhoneNumber";
 import { countries } from "@/data/countries";
 import CartList from "@/components/cartList/CartList.component";
 import { useCartStore } from "@/state/cart";
+import states from "@/data/states";
+import formatCardNumber from "@/utils/formatCardNumber";
 
 const PaymentInformation = () => {
   const [form] = Form.useForm();
 
-  const { currentForm, setCurrentForm, paymentInformationValues } = useCartStore();
+  const { setCurrentForm, paymentInformationValues, userInformationValues, billingInformationValues } = useCartStore();
 
   React.useEffect(() => {
-    form.setFieldsValue(paymentInformationValues);
+    form.setFieldsValue({
+      userInfo: userInformationValues,
+      paymentInfo: paymentInformationValues,
+      billing: billingInformationValues,
+    });
     setCurrentForm(form);
-  }, [form]);
+  }, []);
 
+  console.log(form.getFieldsValue());
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
@@ -25,7 +32,8 @@ const PaymentInformation = () => {
           className={formStyles.form}
           form={form}
           initialValues={{
-            country: "United States of America (the)",
+            // set the default country to United States, in the billing object
+            billing: { country: "United States of America (the)" },
           }}
         >
           <Divider orientation="center">Customer Information</Divider>
@@ -61,16 +69,74 @@ const PaymentInformation = () => {
                   },
                 ]}
               >
-                <InputNumber
+                <Input
                   style={{ width: "100%" }}
-                  formatter={(value: any) => formatPhoneNumber(value)}
-                  parser={(value: any) => value.replace(/[^\d]/g, "")}
-                  controls={false}
                   placeholder="123-456-7890"
+                  // format the phone number as the user types it
+                  onChange={(e) => {
+                    form.setFieldsValue({ userInfo: { phoneNumber: formatPhoneNumber(e.target.value) } });
+                  }}
                 />
               </Form.Item>
             </div>
           </div>
+          <Divider orientation="center">Payment Information</Divider>
+          <div className={formStyles.form__formGroup}>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item
+                label="Name on Card"
+                name={["paymentInfo", "nameOnCard"]}
+                className={formStyles.form__label}
+                rules={[{ required: true, message: "Please enter the name on the card" }]}
+              >
+                <Input placeholder="John Doe" />
+              </Form.Item>
+            </div>
+          </div>
+
+          <div className={formStyles.form__formGroup}>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item
+                label="Card Number"
+                name={["paymentInfo", "cardNumber"]}
+                className={formStyles.form__label}
+                rules={[{ required: true, message: "Please enter a card number" }]}
+                // ensure that the card number is formatted as the user types it
+                // and has a space after every 4 characters
+                // and is of a certain length
+                
+              >
+                <Input
+                  placeholder="1234 5678 9101 1121"
+                  onChange={(e) =>
+                    form.setFieldsValue({ paymentInfo: { cardNumber: formatCardNumber(e.target.value) } })
+                  }
+                />
+              </Form.Item>
+            </div>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item
+                label="Expiration Date"
+                name={["paymentInfo", "expirationDate"]}
+                className={formStyles.form__label}
+                rules={[{ required: true, message: "Please enter the expiration date" }]}
+              >
+                <Input placeholder="MM/YY" 
+                />
+              </Form.Item>
+            </div>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item
+                label="CVV"
+                name={["paymentInfo", "cvv"]}
+                className={formStyles.form__label}
+                rules={[{ required: true, message: "Please enter the CVV" }]}
+              >
+                <Input placeholder="123" />
+              </Form.Item>
+            </div>
+          </div>
+
           <Divider orientation="center">Billing Information</Divider>
 
           <div className={formStyles.form__formGroup}>
@@ -128,6 +194,19 @@ const PaymentInformation = () => {
                   options={countries.map((country) => {
                     return { label: country, value: country };
                   })}
+                  showSearch
+                />
+              </Form.Item>
+            </div>
+            <div className={formStyles.form__inputGroup}>
+              <Form.Item label="State" name={["billing", "state"]} className={formStyles.form__label}>
+                <Select
+                  value={form.getFieldsValue().state}
+                  className={formStyles.form__select}
+                  options={states.map((state) => {
+                    return { label: state.name, value: `${state.name} (${state.abbreviation})` };
+                  })}
+                  showSearch
                 />
               </Form.Item>
             </div>

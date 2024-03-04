@@ -5,7 +5,7 @@ import { Button, message } from "antd";
 import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
 import PaymentInformation from "./subViews/paymentInformation/PaymentInformation.component";
 import ShippingInformation from "./subViews/ShippingInformation.component";
-import Review from "./subViews/Review.component";
+import Review from "./subViews/review/Review.component";
 import { useCartStore } from "@/state/cart";
 import { AnimatePresence, m, motion } from "framer-motion";
 import { validateForm } from "@/utils/validateForm";
@@ -43,8 +43,9 @@ const ProductView = () => {
       nextButtonDisabled: false,
       nextButtonAction: async () => {
         if (await validateForm(currentForm)) {
+          console.log(currentForm.getFieldsValue().userInfo);
           setUserInformationValues(currentForm.getFieldsValue().userInfo);
-          setPaymentInformationValues(currentForm.getFieldsValue().paymentInformation);
+          setPaymentInformationValues(currentForm.getFieldsValue().paymentInfo);
           setBillingInformationValues(currentForm.getFieldsValue().billing);
           // if the shipping information is the same as the billing information, skip the shipping step
           if (currentForm.getFieldsValue().userInfo.sameAsShipping) {
@@ -64,7 +65,13 @@ const ProductView = () => {
       backButtonText: "Back to Payment",
       hideNextButton: false,
       nextButtonDisabled: false,
-      nextButtonAction: () => advanceToNextSignUpStep(),
+      nextButtonAction: async () => {
+        if (await validateForm(currentForm)) {
+          setShippingInformationValues(currentForm.getFieldsValue());
+          advanceToNextSignUpStep();
+          return;
+        } else message.error("Please fill out the form correctly");
+      },
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
     {
