@@ -9,62 +9,75 @@ import { Alert, Button, Form, Input, Modal } from "antd";
 import CustomButton from "@/components/customButton/CustomButton.UI";
 import { useCartStore } from "@/state/cart";
 import CartList from "@/components/cartList/CartList.component";
+import useFetchData from "@/state/actions/useFetchData";
+import Error from "@/components/error/Error.component";
+import InventoryType from "@/types/InventoryType";
 
 const ProductInformationCart = () => {
   const { id } = useParams();
   const [form] = Form.useForm();
-  // TODO: Fetch product from the api
-  // for now we are using a mock inventory
-  const product = mockInventory.find((p) => p._id === id);
+
+  const { data, isFetching, isLoading, isError, error } = useFetchData({
+    url: `/inventory/${id}`,
+    key: `inventory-${id}`,
+  });
+
   const { cart, setCart } = useCartStore();
 
   const addToCart = (values: any) => {
-    if (!product || !values.quantity) return;
+    if (!data?.payload?.inventory || !values.quantity) return;
     if (Number(values.quantity) === 0) return;
-    const productIndex = cart.findIndex((p) => p.product._id === product?._id);
+    const productIndex = cart.findIndex((p) => p.product._id === data?.payload?.inventory?._id);
     const newCart = [...cart];
     if (productIndex !== -1) {
       // check if addinng the quantity will exceed the limit
-      if (product.limit && newCart[productIndex].quantity + Number(values.quantity) > product.limit) {
+      if (
+        data?.payload?.inventory.limit &&
+        newCart[productIndex].quantity + Number(values.quantity) > data?.payload?.inventory.limit
+      ) {
         Modal.info({
           title: "Exceeds limit",
           content: (
             <div>
-              <p>You are trying to add more than the limit of {product.limit}.</p>
+              <p>You are trying to add more than the limit of {data?.payload?.inventory.limit}.</p>
               <p>Try adding a smaller quantity or remove the product from the cart.</p>
             </div>
           ),
         });
         // if the cart for some reason has a quantity higher than the limit, set it to the limit
-        if (newCart[productIndex].quantity > product.limit) {
-          newCart[productIndex].quantity = product.limit;
+        if (newCart[productIndex].quantity > data?.payload?.inventory.limit) {
+          newCart[productIndex].quantity = data?.payload?.inventory.limit;
         }
         // escape the function
         return;
       }
       newCart[productIndex].quantity += Number(values.quantity);
     } else {
-      newCart.push({ product: product!, quantity: Number(values.quantity) });
+      newCart.push({ product: data?.payload?.inventory!, quantity: Number(values.quantity) });
     }
     setCart(newCart as any);
   };
 
-  if (!product) return <div>Product not found</div>;
+  if (!data?.payload?.inventory)
+    return <TitleContainer title="Product not found" subtitle="The product you are looking for does not exist" />;
 
-  const inStock = product?.quantity > 0 ? "In stock" : "Out of stock";
+  if (isError) return <Error error={error} />;
+  const inStock = data?.payload?.inventory?.quantity > 0 ? "In stock" : "Out of stock";
+
+  const product = data.payload.inventory as InventoryType;
 
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <TitleContainer title={product?.name} subtitle={product?.shortDescription} />
+        <TitleContainer title={product?.name} />
         <div className={styles.imageContainer}>
-          <Image src={product?.image[0] ?? ""} alt={product?.name ?? "No image"} width={400} height={400} />
+          <Image src={product?.images?.[0] ?? ""} alt={product?.name ?? "No image"} width={400} height={400} />
         </div>
       </div>
       <div className={styles.contentContainer}>
         <p>{product?.description}</p>
         <div className={styles.productInformation}>
-          <span className={product?.quantity > 0 ? styles.success : styles.danger}>{inStock}</span>
+          <span className={inStock ? styles.success : styles.danger}>{inStock}</span>
           {
             // if the product has a limit, show the limit
             product?.limit && <span>Limit: {product?.limit}</span>

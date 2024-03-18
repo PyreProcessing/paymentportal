@@ -33,7 +33,25 @@ const PaymentInformation = () => {
           form={form}
           initialValues={{
             // set the default country to United States, in the billing object
-            billing: { country: "United States of America (the)" },
+            billing: {
+              country: "US",
+              state: "AL",
+              zipcode: "23444",
+              address: "1234 Main St",
+              city: "Birmingham",
+              firstName: "John",
+              lastName: "Doe",
+            },
+            userInfo: {
+              email: "test@test.com",
+              phoneNumber: "123-456-7890",
+            },
+            paymentInfo: {
+              nameOnCard: "John Doe",
+              cardNumber: "5204 9102 1148 2784",
+              expirationDate: "12/23",
+              cvv: "123",
+            },
           }}
         >
           <Divider orientation="center">Customer Information</Divider>
@@ -104,7 +122,6 @@ const PaymentInformation = () => {
                 // ensure that the card number is formatted as the user types it
                 // and has a space after every 4 characters
                 // and is of a certain length
-                
               >
                 <Input
                   placeholder="1234 5678 9101 1121"
@@ -121,8 +138,7 @@ const PaymentInformation = () => {
                 className={formStyles.form__label}
                 rules={[{ required: true, message: "Please enter the expiration date" }]}
               >
-                <Input placeholder="MM/YY" 
-                />
+                <Input placeholder="MM/YY" />
               </Form.Item>
             </div>
             <div className={formStyles.form__inputGroup}>
@@ -188,14 +204,7 @@ const PaymentInformation = () => {
           <div className={formStyles.form__formGroup}>
             <div className={formStyles.form__inputGroup}>
               <Form.Item label="Country" name={["billing", "country"]} className={formStyles.form__label}>
-                <Select
-                  value={form.getFieldsValue().country}
-                  className={formStyles.form__select}
-                  options={countries.map((country) => {
-                    return { label: country, value: country };
-                  })}
-                  showSearch
-                />
+                <Input value={"US"} readOnly />
               </Form.Item>
             </div>
             <div className={formStyles.form__inputGroup}>
@@ -204,7 +213,7 @@ const PaymentInformation = () => {
                   value={form.getFieldsValue().state}
                   className={formStyles.form__select}
                   options={states.map((state) => {
-                    return { label: state.name, value: `${state.name} (${state.abbreviation})` };
+                    return { label: state.name, value: `${state.abbreviation}` };
                   })}
                   showSearch
                 />

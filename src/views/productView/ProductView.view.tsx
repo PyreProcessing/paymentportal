@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./ProductView.module.scss";
-import { Button, message } from "antd";
+import { Button, Modal, message } from "antd";
 import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
 import PaymentInformation from "./subViews/paymentInformation/PaymentInformation.component";
 import ShippingInformation from "./subViews/ShippingInformation.component";
@@ -9,8 +9,15 @@ import Review from "./subViews/review/Review.component";
 import { useCartStore } from "@/state/cart";
 import { AnimatePresence, m, motion } from "framer-motion";
 import { validateForm } from "@/utils/validateForm";
+import TitleContainer from "@/components/titleContainer/TitleContainer.UI";
+import usePostData from "@/state/actions/usePostData";
 
 const ProductView = () => {
+  const { mutate: placeOrder } = usePostData({
+    url: "/order",
+    key: "placeOrder",
+  });
+
   const {
     step,
     cart,
@@ -23,6 +30,10 @@ const ProductView = () => {
     setBillingInformationValues,
     setShippingInformationValues,
     setUserInformationValues,
+    paymentInformationValues,
+    billingInformationValues,
+    shippingInformationValues,
+    userInformationValues,
   } = useCartStore();
   const steps = [
     {
@@ -83,6 +94,44 @@ const ProductView = () => {
       nextButtonDisabled: false,
       hideBackButton: false,
       backButtonAction: () => goBackToPreviousSignUpStep(),
+      nextButtonAction: async () => {
+        Modal.confirm({
+          title: "Are you sure you want to place this order?",
+          content:
+            "Once the order processes, you'll receive an email and a receipt with your order number that you can use to track the progress of your order.",
+          onOk() {
+            console.log("Order placed");
+            try {
+              placeOrder({
+                cart: cart,
+                user: userInformationValues,
+                payment: paymentInformationValues,
+                billing: billingInformationValues,
+                shipping: shippingInformationValues,
+              });
+              // advanceToNextSignUpStep();
+            } catch (error) {
+              console.log(error);
+              return;
+            }
+          },
+          onCancel() {
+            console.log("Order canceled");
+            return;
+          },
+        });
+      },
+    },
+    {
+      title: "Order Placed",
+      component: (
+        <TitleContainer
+          title="Order Placed"
+          subtitle="Your order has been placed, keep an eye out in your email for your order details!"
+        />
+      ),
+      hideNextButton: true,
+      hideBackButton: true,
     },
   ];
 

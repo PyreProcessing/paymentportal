@@ -2,9 +2,10 @@ import React from "react";
 import styles from "./index.module.scss";
 import { useCartStore } from "@/state/cart";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
-import { Divider } from "antd";
+import { Divider, Modal } from "antd";
 import CartList from "@/components/cartList/CartList.component";
 import capitalizeWords from "@/utils/capitalizeWords";
+import usePostData from "@/state/actions/usePostData";
 
 const Review = () => {
   const { userInformationValues, paymentInformationValues, billingInformationValues, shippingInformationValues } =

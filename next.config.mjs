@@ -11,7 +11,12 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "res.cloudinary.com",
-      }
+      },
+      // wildcard whitelist for every domain
+      {
+        protocol: "https",
+        hostname: "*",
+      },
     ],
   },
 };

@@ -4,6 +4,7 @@ import { useCartStore } from "@/state/cart";
 import ProductType from "@/types/ProductType";
 import { Avatar, Button, Table } from "antd";
 import { FaTimes } from "react-icons/fa";
+import InventoryType from "@/types/InventoryType";
 
 const CartList = () => {
   const { cart, removeProductFromCart } = useCartStore();
@@ -17,15 +18,15 @@ const CartList = () => {
               title: "",
               dataIndex: "image",
               key: "image",
-              render: (value: string, record: { product: ProductType; quantity: number }) => (
-                <Avatar shape="square" size={48} src={record.product.image[0]} alt={record.product.name} />
+              render: (value: string, record: { product: InventoryType; quantity: number }) => (
+                <Avatar shape="square" size={48} src={record.product.images?.[0]} alt={record.product.name} />
               ),
             },
             {
               title: "Product",
               dataIndex: "name",
               key: "name",
-              render: (value: string, record: { product: ProductType; quantity: number }) => (
+              render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.product}>
                   <h4>{record.product.name}</h4>
                 </div>
@@ -40,7 +41,7 @@ const CartList = () => {
               title: "Subtotal",
               dataIndex: "subtotal",
               key: "subtotal",
-              render: (value: number, record: { product: ProductType; quantity: number }) => (
+              render: (value: number, record: { product: InventoryType; quantity: number }) => (
                 <span>${(record.product.price * record.quantity).toFixed(2)}</span>
               ),
             },
@@ -48,7 +49,7 @@ const CartList = () => {
               title: "Actions",
               dataIndex: "actions",
               key: "actions",
-              render: (value: string, record: { product: ProductType; quantity: number }) => (
+              render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.actionsContainer}>
                   <FaTimes
                     className={`${styles.icon} ${styles.remove}`}

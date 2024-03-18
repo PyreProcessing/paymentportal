@@ -1,9 +1,10 @@
+import InventoryType from "@/types/InventoryType";
 import ProductType from "@/types/ProductType";
 import { create } from "zustand";
 
 interface Layout {
   step: number;
-  cart: [{ product: ProductType; quantity: number }] | [];
+  cart: [{ product: InventoryType; quantity: number }] | [];
   isGoingToPreviousStep: boolean;
   signUpErrorDetected: boolean;
   currentForm: any;
@@ -16,7 +17,7 @@ interface Layout {
   setBillingInformationValues: (values: any) => void;
   setShippingInformationValues: (values: any) => void;
   setStep: (step: number) => void;
-  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => void;
+  setCart: (cart: [{ product: InventoryType; quantity: number }] | []) => void;
   goBackToPreviousSignUpStep: () => void;
   advanceToNextSignUpStep: (index?: number) => void;
   removeProductFromCart: (productId: string) => void;
@@ -36,7 +37,7 @@ export const useCartStore = create<Layout>((set) => ({
   setUserInformationValues: (values: any) => set({ userInformationValues: values }),
   setPaymentInformationValues: (values: any) => set({ paymentInformationValues: values }),
   setStep: (step: number) => set({ step }),
-  setCart: (cart: [{ product: ProductType; quantity: number }] | []) => set({ cart }),
+  setCart: (cart: [{ product: InventoryType; quantity: number }] | []) => set({ cart }),
   goBackToPreviousSignUpStep: () => {
     set((state: any) => {
       return {
@@ -58,7 +59,7 @@ export const useCartStore = create<Layout>((set) => ({
   removeProductFromCart: (productId: string) => {
     set((state: any) => {
       return {
-        cart: state.cart.filter((item: { product: ProductType; quantity: number }) => item.product._id !== productId),
+        cart: state.cart.filter((item: { product: InventoryType; quantity: number }) => item.product._id !== productId),
       };
     });
   },
