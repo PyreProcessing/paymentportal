@@ -1,16 +1,21 @@
 @import "@/styles/globals.scss";
 
 .form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
   &__input {
-    border: 1px solid var(--color-primary500);
+    // border: 1px solid var(--color-primary500);
     color: inherit;
     height: 100%;
     border-radius: 5px;
-    padding: 10px;
-    font-size: 1.2rem;
     width: 100%;
     &:focus {
       outline: none;
+    }
+    @include mobile {
+      width: auto;
     }
   }
   &__inputGroup {
@@ -45,11 +50,16 @@
     gap: 10px;
   }
   &__button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     background-color: var(--color-primary500);
     border: none;
     border-radius: 5px;
     color: white;
     font-size: 1.2rem;
+    margin: 1% 0;
     padding: 10px;
     width: 90%;
     &:hover {
@@ -75,5 +85,18 @@
   &__formGroup {
     display: flex;
     gap: 10px;
+
+    @include mobile {
+      flex-direction: column;
+    }
+  }
+  &__formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: white;
+    padding: 2%;
+    border-radius: 10px;
+    width: 100%;
   }
 }

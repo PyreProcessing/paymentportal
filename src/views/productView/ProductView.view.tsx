@@ -11,6 +11,9 @@ import { AnimatePresence, m, motion } from "framer-motion";
 import { validateForm } from "@/utils/validateForm";
 import TitleContainer from "@/components/titleContainer/TitleContainer.UI";
 import usePostData from "@/state/actions/usePostData";
+import { ShoppingCartOutlined } from "@ant-design/icons";
+import { MdOutlineCreditCard, MdOutlineLocalShipping } from "react-icons/md";
+import { FaClipboardCheck } from "react-icons/fa";
 
 const ProductView = () => {
   const { mutate: placeOrder } = usePostData({
@@ -34,6 +37,7 @@ const ProductView = () => {
     billingInformationValues,
     shippingInformationValues,
     userInformationValues,
+    setCartSteps,
   } = useCartStore();
   const steps = [
     {
@@ -140,6 +144,13 @@ const ProductView = () => {
     if (cart.length === 0) {
       setStep(0);
     }
+    // set the steps for the cart
+    setCartSteps([
+      { title: "Cart", icon: <ShoppingCartOutlined /> },
+      { title: "Payment", icon: <MdOutlineCreditCard /> },
+      { title: "Shipping", icon: <MdOutlineLocalShipping /> },
+      { title: "Review", icon: <FaClipboardCheck /> },
+    ] as any);
   }, [cart]);
 
   return (

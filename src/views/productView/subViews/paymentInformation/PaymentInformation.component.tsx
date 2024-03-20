@@ -22,8 +22,7 @@ const PaymentInformation = () => {
     });
     setCurrentForm(form);
   }, []);
-
-  console.log(form.getFieldsValue());
+ 
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>

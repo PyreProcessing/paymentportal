@@ -1,6 +1,5 @@
-import Image from "next/image";
 import styles from "./page.module.scss";
-import ProductView from "@/views/productView/ProductView.view";
+import ProductView from "@/views/productView/ProductView.view"; 
 
 export default function ItemPage() {
   return (
