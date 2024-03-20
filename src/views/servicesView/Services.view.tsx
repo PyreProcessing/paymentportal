@@ -4,18 +4,21 @@ import styles from "./Services.module.scss";
 import formStyles from "@/styles/Form.module.scss";
 import Error from "@/components/error/Error.component";
 import useFetchData from "@/state/actions/useFetchData";
-import { Button, Divider, Form, Input, InputNumber, Select, Skeleton } from "antd";
+import { Button, Checkbox, Divider, Form, Input, InputNumber, Modal, Select, Skeleton, message } from "antd";
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import UserType from "@/types/UserType";
 import formatCardNumber from "@/utils/formatCardNumber";
 import states from "@/data/states";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
+import usePostData from "@/state/actions/usePostData";
+import { on } from "events";
 
 const Services = () => {
   // get the slug from the url
   const { slug } = useParams();
   const [form] = Form.useForm();
+  const [agree, setAgree] = React.useState(false);
 
   // fetch information for the merchant with the slug
   const { data, isLoading, isError, error } = useFetchData({
@@ -23,8 +26,22 @@ const Services = () => {
     key: `merchant-services-${slug}`,
   });
 
-  const onFinish = (values: any) => {
-    console.log(values);
+  const { mutate: submitPayment } = usePostData({
+    url: `/merchant/services/${slug}/payment`,
+    key: `submit-payment-${slug}`,
+    successMessage: `Your payment has been submitted successfully for ${data?.payload?.businessName}!`,
+  });
+
+  const onFinish = () => {
+    // validate the form, if it is not valid, return
+    form.validateFields().then(() => {
+      if (!agree) {
+        message.error("You must agree to the terms and conditions to continue");
+        return;
+      }
+      // if the form is valid, submit the payment
+      submitPayment(form.getFieldsValue());
+    });
   };
 
   if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
@@ -58,7 +75,6 @@ const Services = () => {
         <Form
           layout="vertical"
           form={form}
-          onFinish={onFinish}
           className={formStyles.form}
           initialValues={{
             billing: {
@@ -312,8 +328,29 @@ const Services = () => {
                 </Form.Item>
               </div>
             </div>
+
+            <div className={formStyles.form__formGroup}>
+              <div className={formStyles.form__inputGroup}>
+                <Checkbox
+                  checked={agree}
+                  onChange={() => {
+                    setAgree(!agree);
+                  }}
+                  required
+                >
+                  Check this box to confirm your agreement to proceed with the transaction
+                </Checkbox>
+              </div>
+            </div>
             <div className={formStyles.form__buttonContainer}>
-              <Button type="primary" htmlType="submit" className={formStyles.form__button}>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className={formStyles.form__button}
+                onClick={() => {
+                  onFinish();
+                }}
+              >
                 Submit Payment
               </Button>
             </div>
