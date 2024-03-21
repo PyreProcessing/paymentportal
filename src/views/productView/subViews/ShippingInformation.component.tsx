@@ -1,7 +1,7 @@
 import React from "react";
 import { useCartStore } from "@/state/cart";
 import { Checkbox, Divider, Form, Input, Select } from "antd";
-import formStyles from "@/styles/form.module.scss";
+import formStyles from "@/styles/Form.module.scss";
 import { countries } from "@/data/countries";
 import states from "@/data/states";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { Checkbox, Divider, Form, Input, InputNumber, Select } from "antd";
 import styles from "./index.module.scss";
-import formStyles from "@/styles/form.module.scss";
+import formStyles from "@/styles/Form.module.scss";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
 import { countries } from "@/data/countries";
 import CartList from "@/components/cartList/CartList.component";
