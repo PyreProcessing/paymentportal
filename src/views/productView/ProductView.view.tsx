@@ -113,7 +113,7 @@ const ProductView = () => {
                 billing: billingInformationValues,
                 shipping: shippingInformationValues,
               });
-              // advanceToNextSignUpStep();
+              advanceToNextSignUpStep();
             } catch (error) {
               console.log(error);
               return;
