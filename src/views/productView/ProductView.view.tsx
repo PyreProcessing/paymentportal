@@ -1,24 +1,25 @@
-"use client";
-import React from "react";
-import styles from "./ProductView.module.scss";
-import { Button, Modal, message } from "antd";
-import ProductInformationCart from "./subViews/productInformationCart/ProductInformationCart.component";
-import PaymentInformation from "./subViews/paymentInformation/PaymentInformation.component";
-import ShippingInformation from "./subViews/ShippingInformation.component";
-import Review from "./subViews/review/Review.component";
-import { useCartStore } from "@/state/cart";
-import { AnimatePresence, m, motion } from "framer-motion";
-import { validateForm } from "@/utils/validateForm";
-import TitleContainer from "@/components/titleContainer/TitleContainer.UI";
-import usePostData from "@/state/actions/usePostData";
-import { ShoppingCartOutlined } from "@ant-design/icons";
-import { MdOutlineCreditCard, MdOutlineLocalShipping } from "react-icons/md";
-import { FaClipboardCheck } from "react-icons/fa";
+'use client';
+import React from 'react';
+import styles from './ProductView.module.scss';
+import { Button, Modal, message } from 'antd';
+import ProductInformationCart from './subViews/productInformationCart/ProductInformationCart.component';
+import PaymentInformation from './subViews/paymentInformation/PaymentInformation.component';
+import ShippingInformation from './subViews/ShippingInformation.component';
+import Review from './subViews/review/Review.component';
+import { useCartStore } from '@/state/cart';
+import { AnimatePresence, m, motion } from 'framer-motion';
+import { validateForm } from '@/utils/validateForm';
+import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
+import usePostData from '@/state/actions/usePostData';
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import { MdOutlineCreditCard, MdOutlineLocalShipping } from 'react-icons/md';
+import { FaClipboardCheck } from 'react-icons/fa';
+import errorHandler from '@/utils/errorHandler';
 
 const ProductView = () => {
   const { mutate: placeOrder } = usePostData({
-    url: "/order",
-    key: "placeOrder",
+    url: '/order',
+    key: 'placeOrder',
   });
 
   const {
@@ -41,24 +42,23 @@ const ProductView = () => {
   } = useCartStore();
   const steps = [
     {
-      title: "Cart",
+      title: 'Cart',
       component: <ProductInformationCart />,
-      nextButtonText: "Proceed to Payment",
+      nextButtonText: 'Proceed to Payment',
       hideBackButton: true,
       hideNextButton: false,
       nextButtonDisabled: cart.length === 0,
       nextButtonAction: () => advanceToNextSignUpStep(),
     },
     {
-      title: "Payment",
+      title: 'Payment',
       component: <PaymentInformation />,
-      nextButtonText: "Proceed to Shipping",
-      backButtonText: "Back to Cart",
+      nextButtonText: 'Proceed to Shipping',
+      backButtonText: 'Back to Cart',
       hideNextButton: false,
       nextButtonDisabled: false,
       nextButtonAction: async () => {
         if (await validateForm(currentForm)) {
-          console.log(currentForm.getFieldsValue().userInfo);
           setUserInformationValues(currentForm.getFieldsValue().userInfo);
           setPaymentInformationValues(currentForm.getFieldsValue().paymentInfo);
           setBillingInformationValues(currentForm.getFieldsValue().billing);
@@ -69,15 +69,15 @@ const ProductView = () => {
             return;
           }
           advanceToNextSignUpStep();
-        } else message.error("Please fill out the form correctly");
+        } else message.error('Please fill out the form correctly');
       },
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
     {
-      title: "Shipping",
+      title: 'Shipping',
       component: <ShippingInformation />,
-      nextButtonText: "Review Order",
-      backButtonText: "Back to Payment",
+      nextButtonText: 'Review Order',
+      backButtonText: 'Back to Payment',
       hideNextButton: false,
       nextButtonDisabled: false,
       nextButtonAction: async () => {
@@ -85,26 +85,25 @@ const ProductView = () => {
           setShippingInformationValues(currentForm.getFieldsValue());
           advanceToNextSignUpStep();
           return;
-        } else message.error("Please fill out the form correctly");
+        } else message.error('Please fill out the form correctly');
       },
       backButtonAction: () => goBackToPreviousSignUpStep(),
     },
     {
-      title: "Review",
+      title: 'Review',
       component: <Review />,
-      nextButtonText: "Place Order",
-      backButtonText: "Back to Shipping",
+      nextButtonText: 'Place Order',
+      backButtonText: 'Back to Shipping',
       hideNextButton: false,
       nextButtonDisabled: false,
       hideBackButton: false,
       backButtonAction: () => goBackToPreviousSignUpStep(),
       nextButtonAction: async () => {
         Modal.confirm({
-          title: "Are you sure you want to place this order?",
+          title: 'Are you sure you want to place this order?',
           content:
             "Once the order processes, you'll receive an email and a receipt with your order number that you can use to track the progress of your order.",
           onOk() {
-            console.log("Order placed");
             try {
               placeOrder({
                 cart: cart,
@@ -115,19 +114,19 @@ const ProductView = () => {
               });
               advanceToNextSignUpStep();
             } catch (error) {
-              console.log(error);
+              errorHandler(error);
               return;
             }
           },
           onCancel() {
-            console.log("Order canceled");
+            console.log('Order canceled');
             return;
           },
         });
       },
     },
     {
-      title: "Order Placed",
+      title: 'Order Placed',
       component: (
         <TitleContainer
           title="Order Placed"
@@ -146,10 +145,10 @@ const ProductView = () => {
     }
     // set the steps for the cart
     setCartSteps([
-      { title: "Cart", icon: <ShoppingCartOutlined /> },
-      { title: "Payment", icon: <MdOutlineCreditCard /> },
-      { title: "Shipping", icon: <MdOutlineLocalShipping /> },
-      { title: "Review", icon: <FaClipboardCheck /> },
+      { title: 'Cart', icon: <ShoppingCartOutlined /> },
+      { title: 'Payment', icon: <MdOutlineCreditCard /> },
+      { title: 'Shipping', icon: <MdOutlineLocalShipping /> },
+      { title: 'Review', icon: <FaClipboardCheck /> },
     ] as any);
   }, [cart]);
 
@@ -170,7 +169,7 @@ const ProductView = () => {
               scale: 1,
             }}
             transition={{
-              ease: "easeInOut",
+              ease: 'easeInOut',
               duration: 0.3,
             }}
             exit={{
@@ -188,7 +187,9 @@ const ProductView = () => {
           <Button
             type="text"
             className={styles.backButton}
-            onClick={steps[step]?.backButtonAction || goBackToPreviousSignUpStep}
+            onClick={
+              steps[step]?.backButtonAction || goBackToPreviousSignUpStep
+            }
           >
             Back
           </Button>
@@ -202,7 +203,7 @@ const ProductView = () => {
             disabled={steps[step]?.nextButtonDisabled}
             className={styles.nextButton}
           >
-            {steps[step]?.nextButtonText || "Next"}
+            {steps[step]?.nextButtonText || 'Next'}
           </Button>
         )}
       </div>

@@ -8,14 +8,13 @@ import { useRouter } from 'next/navigation';
  * @description Axio call to create or post data to api
  * @param formData
  * @returns
- * @todo add types
  */
 const postFormData = async (url: string, formData: any) => {
   try {
     const { data } = await axios.post(url, formData);
     return data;
   } catch (error: any) {
-    return { error: error.response.data, success: false };
+    throw new Error(error.response.data.message);
   }
 };
 

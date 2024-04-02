@@ -105,7 +105,7 @@ const Services = () => {
           initialValues={{
             billing: {
               country: 'US',
-              // state: 'AL',
+              state: 'AL',
               // zipcode: '23444',
               // address: '1234 Main St',
               // city: 'Birmingham',
@@ -117,7 +117,7 @@ const Services = () => {
               // phoneNumber: '(123)-456-7890',
             },
             paymentInfo: {
-              // amount: 100.0,
+              amount: 100.0,
               // nameOnCard: 'John Doe',
               // cardNumber: '5204 9102 1148 2784',
               // expirationDate: '12/23',

@@ -38,7 +38,7 @@ const PaymentInformation = () => {
             // set the default country to United States, in the billing object
             billing: {
               country: 'US',
-              // state: 'AL',
+              state: 'AL',
               // zipcode: '23444',
               // address: '1234 Main St',
               // city: 'Birmingham',
