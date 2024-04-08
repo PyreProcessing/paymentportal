@@ -25,6 +25,7 @@ import formatPhoneNumber from '@/utils/formatPhoneNumber';
 import usePostData from '@/state/actions/usePostData';
 import { on } from 'events';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
+import { encryptData } from '@/utils/encryptData';
 
 const Services = () => {
   // get the slug from the url
@@ -54,7 +55,9 @@ const Services = () => {
         return;
       }
       // if the form is valid, submit the payment
-      submitPayment(form.getFieldsValue());
+      submitPayment({
+        data: encryptData(JSON.stringify(form.getFieldsValue())),
+      });
     });
   };
 
@@ -106,22 +109,22 @@ const Services = () => {
             billing: {
               country: 'US',
               state: 'AL',
-              // zipcode: '23444',
-              // address: '1234 Main St',
-              // city: 'Birmingham',
-              // firstName: 'John',
-              // lastName: 'Doe',
+              zipcode: '23444',
+              address: '1234 Main St',
+              city: 'Birmingham',
+              firstName: 'John',
+              lastName: 'Doe',
             },
             userInfo: {
-              // email: 'test@test.com',
-              // phoneNumber: '(123)-456-7890',
+              email: 'test@test.com',
+              phoneNumber: '(123)-456-7890',
             },
             paymentInfo: {
               amount: 100.0,
-              // nameOnCard: 'John Doe',
-              // cardNumber: '5204 9102 1148 2784',
-              // expirationDate: '12/23',
-              // cvv: '123',
+              nameOnCard: 'John Doe',
+              cardNumber: '5204 9102 1148 2784',
+              expirationDate: '12/23',
+              cvv: '123',
             },
           }}
         >
