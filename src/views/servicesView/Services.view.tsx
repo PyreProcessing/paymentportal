@@ -26,6 +26,7 @@ import usePostData from '@/state/actions/usePostData';
 import { on } from 'events';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { encryptData } from '@/utils/encryptData';
+import decryptData from '@/utils/decryptData';
 
 const Services = () => {
   // get the slug from the url
@@ -64,7 +65,7 @@ const Services = () => {
   if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
   if (isError) return <Error error={error} />;
 
-  const merchant: UserType = data.payload;
+  const merchant: UserType = JSON.parse(decryptData(data.payload));
 
   if (successfulTransaction)
     return (

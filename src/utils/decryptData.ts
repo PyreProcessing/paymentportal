@@ -1,7 +1,7 @@
 import CryptoJS, { AES } from 'crypto-js';
 
 /**
- * @description uses crypto-js to encrypt sensitive data, such as passwords
+ * @description uses crypto-js to decrypt sensitive data, such as passwords
  * @param {string} data - the data to be encrypted
  * @returns {string} - the encrypted data
  *
@@ -17,6 +17,8 @@ import CryptoJS, { AES } from 'crypto-js';
  * @see https://www.npmjs.com/package/crypto-js#usage
  * @todo write tests
  */
-export const encryptData = (data: string): string => {
-  return AES.encrypt(data, process.env.ENCRYPTION_KEY!).toString();
+export default (data: string): string => {
+  return AES.decrypt(data, process.env.ENCRYPTION_KEY!).toString(
+    CryptoJS.enc.Utf8
+  );
 };
