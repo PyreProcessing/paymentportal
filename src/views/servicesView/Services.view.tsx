@@ -33,6 +33,7 @@ const Services = () => {
   const { slug } = useParams();
   const [form] = Form.useForm();
   const [agree, setAgree] = React.useState(false);
+  const [merchant, setMerchant] = React.useState<UserType | null>(null);
   const [successfulTransaction, setSuccessfulTransaction] =
     React.useState(false);
 
@@ -61,11 +62,14 @@ const Services = () => {
       });
     });
   };
+  React.useEffect(() => {
+    if (data?.payload) {
+      setMerchant(JSON.parse(decryptData(data.payload)));
+    }
+  }, [data?.payload]);
 
   if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
   if (isError) return <Error error={error} />;
-
-  const merchant: UserType = JSON.parse(decryptData(data.payload));
 
   if (successfulTransaction)
     return (
@@ -75,6 +79,13 @@ const Services = () => {
       />
     );
 
+  if (!merchant)
+    return (
+      <TitleContainer
+        title="Merchant Not Found"
+        subtitle="The merchant you are looking for does not exist"
+      />
+    );
   return (
     <div className={styles.container}>
       <div className={styles.businessContainer}>
