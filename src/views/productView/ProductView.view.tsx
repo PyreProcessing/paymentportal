@@ -15,6 +15,7 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { MdOutlineCreditCard, MdOutlineLocalShipping } from 'react-icons/md';
 import { FaClipboardCheck } from 'react-icons/fa';
 import errorHandler from '@/utils/errorHandler';
+import { encryptData } from '@/utils/encryptData';
 
 const ProductView = () => {
   const { mutate: placeOrder } = usePostData({
@@ -106,11 +107,15 @@ const ProductView = () => {
           onOk() {
             try {
               placeOrder({
-                cart: cart,
-                user: userInformationValues,
-                payment: paymentInformationValues,
-                billing: billingInformationValues,
-                shipping: shippingInformationValues,
+                data: encryptData(
+                  JSON.stringify({
+                    cart: cart,
+                    user: userInformationValues,
+                    payment: paymentInformationValues,
+                    billing: billingInformationValues,
+                    shipping: shippingInformationValues,
+                  })
+                ),
               });
               advanceToNextSignUpStep();
             } catch (error) {

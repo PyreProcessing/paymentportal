@@ -25,12 +25,15 @@ import formatPhoneNumber from '@/utils/formatPhoneNumber';
 import usePostData from '@/state/actions/usePostData';
 import { on } from 'events';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
+import { encryptData } from '@/utils/encryptData';
+import decryptData from '@/utils/decryptData';
 
 const Services = () => {
   // get the slug from the url
   const { slug } = useParams();
   const [form] = Form.useForm();
   const [agree, setAgree] = React.useState(false);
+  const [merchant, setMerchant] = React.useState<UserType | null>(null);
   const [successfulTransaction, setSuccessfulTransaction] =
     React.useState(false);
 
@@ -54,14 +57,19 @@ const Services = () => {
         return;
       }
       // if the form is valid, submit the payment
-      submitPayment(form.getFieldsValue());
+      submitPayment({
+        data: encryptData(JSON.stringify(form.getFieldsValue())),
+      });
     });
   };
+  React.useEffect(() => {
+    if (data?.payload) {
+      setMerchant(JSON.parse(decryptData(data.payload)));
+    }
+  }, [data?.payload]);
 
   if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
   if (isError) return <Error error={error} />;
-
-  const merchant: UserType = data.payload;
 
   if (successfulTransaction)
     return (
@@ -71,6 +79,13 @@ const Services = () => {
       />
     );
 
+  if (!merchant)
+    return (
+      <TitleContainer
+        title="Merchant Not Found"
+        subtitle="The merchant you are looking for does not exist"
+      />
+    );
   return (
     <div className={styles.container}>
       <div className={styles.businessContainer}>
@@ -106,22 +121,22 @@ const Services = () => {
             billing: {
               country: 'US',
               state: 'AL',
-              // zipcode: '23444',
-              // address: '1234 Main St',
-              // city: 'Birmingham',
-              // firstName: 'John',
-              // lastName: 'Doe',
+              zipcode: '23444',
+              address: '1234 Main St',
+              city: 'Birmingham',
+              firstName: 'John',
+              lastName: 'Doe',
             },
             userInfo: {
-              // email: 'test@test.com',
-              // phoneNumber: '(123)-456-7890',
+              email: 'test@test.com',
+              phoneNumber: '(123)-456-7890',
             },
             paymentInfo: {
               amount: 100.0,
-              // nameOnCard: 'John Doe',
-              // cardNumber: '5204 9102 1148 2784',
-              // expirationDate: '12/23',
-              // cvv: '123',
+              nameOnCard: 'John Doe',
+              cardNumber: '5204 9102 1148 2784',
+              expirationDate: '12/23',
+              cvv: '123',
             },
           }}
         >
