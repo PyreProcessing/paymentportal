@@ -446,7 +446,7 @@ const Services = () => {
                 >
                   Accept
                 </Checkbox>
-                "By clicking 'Accept', you authorize Pyre Mountain Processing to 
+                &quot;By clicking &apos;Accept&apos;, you authorize Pyre Mountain Processing to 
                 securely collect and process the personal information provided, 
                 including but not limited to credit card details, billing/shipping 
                 information, name, email, and phone number, for the purpose of 
@@ -456,12 +456,12 @@ const Services = () => {
                 acknowledge that Pyre Mountain Processing will retain only the 
                 necessary information for record-keeping purposes, including 
                 billing/shipping details and the last 4 digits of the credit card 
-                used. You further consent to Pyre Mountain Processing's adherence 
+                used. You further consent to Pyre Mountain Processing&apos;s adherence 
                 to applicable data protection laws and regulations, including but 
                 not limited to the General Data Protection Regulation (GDPR) and 
                 the Payment Card Industry Data Security Standard (PCI DSS). For 
                 more information on how Pyre Mountain Processing handles your 
-                personal data, please refer to our Privacy Policy." 
+                personal data, please refer to our Privacy Policy.&quot; 
               </div>
             </div>
             <div className={formStyles.form__buttonContainer}>
