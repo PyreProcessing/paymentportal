@@ -8,6 +8,7 @@ import InventoryType from "@/types/InventoryType";
 
 const CartList = () => {
   const { cart, removeProductFromCart } = useCartStore();
+  console.log(cart)
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
@@ -64,6 +65,13 @@ const CartList = () => {
           pagination={false}
         />
       </div>
+      {/* Tax container */}
+      <div className={styles.shippingPriceContainer}>
+        <h4>Tax</h4>
+        <span>{cart.reduce((acc, curr) => acc + curr.product.tax, 0)}%</span>
+        <span>${cart.reduce((acc, curr) => acc + (curr.product.price * curr.product.tax/100).toFixed(2) * curr.quantity, 0).toFixed(2)}</span>
+      </div>
+
       {/* shipping price container */}
       <div className={styles.shippingPriceContainer}>
         <h4>Shipping</h4>
@@ -73,7 +81,7 @@ const CartList = () => {
       {/* total price container */}
       <div className={styles.totalPriceContainer}>
         <h4>Total</h4>
-        <span>${cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0).toFixed(2)}</span>
+        <span>${cart.reduce((acc, curr) => acc + (curr.product.price * (1 + curr.product.tax/100)).toFixed(2) * curr.quantity, 0).toFixed(2)}</span>
       </div>
     </div>
   );
