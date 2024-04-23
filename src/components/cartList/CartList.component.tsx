@@ -67,7 +67,7 @@ const CartList = () => {
         />
       </div>
       {/* Tax container */}
-      <div className={styles.shippingPriceContainer}>
+      <div className={styles.taxContainer}>
         <h4>Tax</h4>
         <span>{cart[0]?.product.tax}%</span>
         <span>${tax(cart[0]?.product.price, cart[0]?.product.tax)}</span>
