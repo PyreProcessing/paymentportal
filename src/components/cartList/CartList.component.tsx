@@ -8,6 +8,8 @@ import InventoryType from "@/types/InventoryType";
 
 const CartList = () => {
   const { cart, removeProductFromCart } = useCartStore();
+  function tax(price: any, taxRate: any) { return Number((price * taxRate / 100).toFixed(2)); }
+
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>
@@ -64,6 +66,13 @@ const CartList = () => {
           pagination={false}
         />
       </div>
+      {/* Tax container */}
+      <div className={styles.taxContainer}>
+        <h4>Tax</h4>
+        <span>{cart[0]?.product.tax}%</span>
+        <span>${tax(cart[0]?.product.price, cart[0]?.product.tax)}</span>
+      </div>
+
       {/* shipping price container */}
       <div className={styles.shippingPriceContainer}>
         <h4>Shipping</h4>
@@ -73,7 +82,7 @@ const CartList = () => {
       {/* total price container */}
       <div className={styles.totalPriceContainer}>
         <h4>Total</h4>
-        <span>${cart.reduce((acc, curr) => acc + curr.product.price * curr.quantity, 0).toFixed(2)}</span>
+        <span>${cart.reduce((acc, curr) => acc + (curr.product.price + tax(curr.product.price, curr.product.tax)) * curr.quantity, 0)}</span>
       </div>
     </div>
   );
