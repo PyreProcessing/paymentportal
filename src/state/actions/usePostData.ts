@@ -10,12 +10,8 @@ import { useRouter } from 'next/navigation';
  * @returns
  */
 const postFormData = async (url: string, formData: any) => {
-  try {
-    const { data } = await axios.post(url, formData);
-    return data;
-  } catch (error: any) {
-    throw new Error(error.response.data.message);
-  }
+  const { data } = await axios.post(url, formData);
+  return data;
 };
 
 /**
@@ -27,6 +23,8 @@ export default (options: {
   queriesToInvalidate?: string[];
   successMessage?: string;
   redirectUrl?: string;
+  onSuccessCallback?: (data: any) => void;
+  onErrorCallback?: (error: Error) => void;
 }) => {
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -41,10 +39,19 @@ export default (options: {
       if (options.redirectUrl) {
         router.push(options.redirectUrl);
       }
-      return data;
+      // Call optional onSuccess callback
+      if (options.onSuccessCallback) {
+        options.onSuccessCallback(data);
+      }
     },
     onError: (error: Error) => {
+      // Handle the error
       errorHandler(error);
+
+      // Call optional onError callback
+      if (options.onErrorCallback) {
+        options.onErrorCallback(error);
+      }
     },
   });
 };

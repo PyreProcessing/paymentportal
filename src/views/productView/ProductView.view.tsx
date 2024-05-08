@@ -21,7 +21,7 @@ import { useParams } from 'next/navigation';
 const ProductView = () => {
   // we need to get the payment processor key from the query params
   const { paymentProcessor: paymentProcessorKey } = useParams();
-  const { mutate: placeOrder } = usePostData({
+  const { mutate: placeOrder, isLoading: processLoader } = usePostData({
     url: `/transaction/${paymentProcessorKey}/product`,
     key: 'placeOrder',
   });
@@ -123,8 +123,9 @@ const ProductView = () => {
             'information on how Pyre Mountain Processing handles your personal ' +
             'data, please refer to our Privacy Policy.',
           onOk() {
-            try {
-              placeOrder({
+            // use a promise to await the place order mutation, once its done, advance to the next step
+            placeOrder(
+              {
                 data: encryptData(
                   JSON.stringify({
                     cart: cart,
@@ -134,15 +135,15 @@ const ProductView = () => {
                     shipping: shippingInformationValues,
                   })
                 ),
-              });
-              advanceToNextSignUpStep();
-            } catch (error) {
-              errorHandler(error);
-              return;
-            }
+              },
+              {
+                onSuccess: () => {
+                  advanceToNextSignUpStep();
+                },
+              }
+            );
           },
           onCancel() {
-            console.log('Order canceled');
             return;
           },
         });
@@ -175,6 +176,13 @@ const ProductView = () => {
     ] as any);
   }, [cart]);
 
+  if (processLoader) {
+    return (
+      <div className={styles.container}>
+        <TitleContainer title="Processing Order" subtitle="Please wait..." />
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <div className={styles.contentContainer}>

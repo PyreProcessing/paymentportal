@@ -11,7 +11,6 @@ import {
   Form,
   Input,
   InputNumber,
-  Modal,
   Select,
   Skeleton,
   message,
@@ -23,7 +22,6 @@ import formatCardNumber from '@/utils/formatCardNumber';
 import states from '@/data/states';
 import formatPhoneNumber from '@/utils/formatPhoneNumber';
 import usePostData from '@/state/actions/usePostData';
-import { on } from 'events';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { encryptData } from '@/utils/encryptData';
 import decryptData from '@/utils/decryptData';
@@ -43,7 +41,7 @@ const Services = () => {
     key: `merchant-services-${slug}`,
   });
 
-  const { mutate: submitPayment } = usePostData({
+  const { mutate: submitPayment, isLoading: paymentProcessing } = usePostData({
     url: `/transaction/${paymentProcessor}/${slug}/service`,
     key: `submit-payment-${slug}`,
     successMessage: `Your payment has been submitted successfully for ${slug}!`,
@@ -57,9 +55,16 @@ const Services = () => {
         return;
       }
       // if the form is valid, submit the payment
-      submitPayment({
-        data: encryptData(JSON.stringify(form.getFieldsValue())),
-      });
+      submitPayment(
+        {
+          data: encryptData(JSON.stringify(form.getFieldsValue())),
+        },
+        {
+          onSuccess: () => {
+            setSuccessfulTransaction(true);
+          },
+        }
+      );
     });
   };
   React.useEffect(() => {
@@ -68,7 +73,8 @@ const Services = () => {
     }
   }, [data?.payload]);
 
-  if (isLoading) return <Skeleton active paragraph={{ rows: 4 }} />;
+  if (isLoading || paymentProcessing)
+    return <Skeleton active paragraph={{ rows: 4 }} />;
   if (isError) return <Error error={error} />;
 
   if (successfulTransaction)
