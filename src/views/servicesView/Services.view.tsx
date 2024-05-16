@@ -94,18 +94,27 @@ const Services = () => {
     );
   return (
     <div className={styles.container}>
+      {merchant?.status !== 'active' && (
+        <div className={styles.inactiveContainer}>
+          <TitleContainer
+            title="Processing in Progress"
+            subtitle="We're still working on processing this merchant. Please check back later!"
+            styles={styles.titleContainer}
+          />
+        </div>
+      )}
       <div className={styles.businessContainer}>
         <div className={styles.logoContainer}>
           <Image
-            src={merchant?.businessLogoUrl ?? ''}
-            alt={merchant?.businessName + '-logo'}
-            width={300}
-            height={300}
+            src={merchant?.businessInfo?.logoUrl ?? ''}
+            alt={merchant?.businessInfo?.name + '-logo'}
+            width={500}
+            height={250}
           />
         </div>
         <div className={styles.businessDescription}>
-          <h1>{merchant?.businessName}</h1>
-          <p>{merchant?.businessDescription}</p>
+          <h1>{merchant?.businessInfo?.name}</h1>
+          <p>{merchant?.businessInfo?.missionStatement}</p>
           <p className={styles.subText}>
             By utilizing our payment for services platform, you acknowledge and
             agree that the amount specified by you in the provided form shall be
@@ -123,6 +132,7 @@ const Services = () => {
           layout="vertical"
           form={form}
           className={formStyles.form}
+          disabled={merchant?.status !== 'active'}
           initialValues={{
             billing: {
               country: 'US',

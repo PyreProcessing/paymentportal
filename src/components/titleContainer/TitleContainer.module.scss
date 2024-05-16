@@ -1,4 +1,4 @@
-@import "@/styles/globals.scss";
+@import '@/styles/globals.scss';
 
 .container {
   display: flex;
@@ -13,7 +13,9 @@
       line-height: 60px;
       margin: 24px 0px 0px;
       max-width: 992px;
-      color: var(--color-primary900);
+      // set color to inherit from parent class or set it default to primary900
+
+      color: var(inherit, --color-primary900);
 
       @include mobile {
         font-size: 48px;
@@ -27,8 +29,7 @@
       line-height: 28px;
       font-weight: 400;
       margin: 44px 0px 0px;
-
-      color: var(--color-primary900);
+      color: var(inherit, --color-primary900);
       @include mobile {
         font-size: 18px;
         line-height: 24px;

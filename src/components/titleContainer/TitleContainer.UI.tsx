@@ -1,14 +1,19 @@
-import React from "react";
-import styles from "./TitleContainer.module.scss";
+import React from 'react';
+import styles from './TitleContainer.module.scss';
 
 interface TitleContainerProps {
   title?: string;
   subtitle?: string;
+  styles?: any;
 }
 
 const TitleContainer = (props: TitleContainerProps) => {
   return (
-    <div className={styles.container}>
+    <div
+      className={
+        props?.styles ? `${props.styles} ${styles.container}` : styles.container
+      }
+    >
       <div className={styles.headerContainer}>
         <h1 className={styles.title}>{props?.title}</h1>
       </div>

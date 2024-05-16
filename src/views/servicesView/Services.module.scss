@@ -1,4 +1,4 @@
-@import "@/styles/globals.scss";
+@import '@/styles/globals.scss';
 .container {
   display: flex;
   flex-direction: column;
@@ -10,6 +10,24 @@
   padding: 2%;
   max-width: 1024px;
   margin: 0 auto;
+  position: relative;
+  .inactiveContainer {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #47474727;
+    z-index: 5;
+    .titleContainer {
+      width: 100%;
+      padding: 5%;
+      background-color: rgba(var(--color-primary-rgb), 0.75);
+      color: white;
+    }
+  }
   .businessContainer {
     display: flex;
     flex-direction: column;
