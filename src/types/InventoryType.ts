@@ -1,10 +1,15 @@
+import UserType from "./UserType";
+
 export default interface InventoryType {
   _id: string;
-  merchant: string;
+  merchant: UserType;
+  limit?: number;
+  noLimit?: boolean;
   name: string;
   description: string;
   price: number;
   quantity?: number;
+  inventoryAlert?: number;
   // field for unlimited stock, stock never runs out, used mainly for digital products
   unlimitedStock?: boolean;
   images?: string[];
@@ -23,7 +28,6 @@ export default interface InventoryType {
   requiresShipping?: boolean;
   shippingFee?: number;
   tax?: number;
+  fee?: number;
   taxable?: boolean;
-  noLimit?: boolean;
-  limit?: number;
 }
