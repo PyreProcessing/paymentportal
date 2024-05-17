@@ -106,8 +106,16 @@ const Services = () => {
       <div className={styles.businessContainer}>
         <div className={styles.logoContainer}>
           <Image
-            src={merchant?.businessInfo?.logoUrl ?? ''}
-            alt={merchant?.businessInfo?.name + '-logo'}
+            src={
+              merchant?.businessInfo?.logoUrl
+                ? merchant?.businessInfo.logoUrl
+                : merchant?.businessLogoUrl
+            }
+            alt={
+              merchant?.businessInfo?.name
+                ? merchant?.businessInfo.name + '-logo'
+                : merchant?.businessName + '-logo'
+            }
             width={500}
             height={250}
           />

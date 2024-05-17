@@ -16,7 +16,9 @@ export default interface UserType {
     phone: string;
     ein: string;
   };
-  businessSlug: string;
+  businessLogoUrl: string; //deprecated
+  businessName: string; //deprecated
+  businessSlug: string; //deprecated
   agent?: string;
   status: 'pending' | 'active' | 'inactive' | 'deleted';
   phoneNumber: string;
