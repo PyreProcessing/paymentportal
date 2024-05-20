@@ -12,6 +12,7 @@ import CartList from '@/components/cartList/CartList.component';
 import useFetchData from '@/state/actions/useFetchData';
 import Error from '@/components/error/Error.component';
 import InventoryType from '@/types/InventoryType';
+import { useMerchantStore } from '@/state/merchant';
 
 const ProductInformationCart = () => {
   const { id } = useParams();
@@ -23,6 +24,7 @@ const ProductInformationCart = () => {
   });
 
   const { cart, setCart } = useCartStore();
+  const { setMerchant } = useMerchantStore();
 
   const addToCart = (values: any) => {
     // if (product?.merchant?.status !== 'active') return;
@@ -70,6 +72,13 @@ const ProductInformationCart = () => {
     }
     setCart(newCart as any);
   };
+
+  React.useEffect(() => {
+    // set the merchant from the product
+    if (data?.payload?.inventory?.merchant) {
+      setMerchant(data?.payload?.inventory.merchant);
+    }
+  }, [data?.payload?.inventory]);
 
   if (!data?.payload?.inventory)
     return (

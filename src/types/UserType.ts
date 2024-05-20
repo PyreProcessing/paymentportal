@@ -15,6 +15,10 @@ export default interface UserType {
     email: string;
     phone: string;
     ein: string;
+    refundPolicy: string;
+    termsOfService: string;
+    privacyPolicy: string;
+    website: string;
   };
   businessLogoUrl: string; //deprecated
   businessName: string; //deprecated

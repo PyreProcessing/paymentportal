@@ -25,15 +25,16 @@ import usePostData from '@/state/actions/usePostData';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { encryptData } from '@/utils/encryptData';
 import decryptData from '@/utils/decryptData';
+import { useMerchantStore } from '@/state/merchant';
 
 const Services = () => {
   // get the slug from the url
   const { slug, paymentProcessor } = useParams();
   const [form] = Form.useForm();
-  const [agree, setAgree] = React.useState(false);
-  const [merchant, setMerchant] = React.useState<UserType | null>(null);
+  const [agree, setAgree] = React.useState(false); 
   const [successfulTransaction, setSuccessfulTransaction] =
     React.useState(false);
+  const { merchant, setMerchant } = useMerchantStore();
 
   // fetch information for the merchant with the slug
   const { data, isLoading, isError, error } = useFetchData({
