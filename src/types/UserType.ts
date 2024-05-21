@@ -20,6 +20,9 @@ export default interface UserType {
     privacyPolicy: string;
     website: string;
   };
+  servicePageOptions?: {
+    predeterminedAmounts: string[];
+  };
   businessLogoUrl: string; //deprecated
   businessName: string; //deprecated
   businessSlug: string; //deprecated

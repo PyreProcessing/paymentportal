@@ -26,12 +26,17 @@ import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { encryptData } from '@/utils/encryptData';
 import decryptData from '@/utils/decryptData';
 import { useMerchantStore } from '@/state/merchant';
+import { useSearchParams } from 'next/navigation';
+import currencyFormatter from '@/utils/currencyFormatter';
 
 const Services = () => {
+  const query = useSearchParams();
   // get the slug from the url
   const { slug, paymentProcessor } = useParams();
+  // pull out query params
+  const disableForm = query.get('disableForm') === 'true';
   const [form] = Form.useForm();
-  const [agree, setAgree] = React.useState(false); 
+  const [agree, setAgree] = React.useState(false);
   const [successfulTransaction, setSuccessfulTransaction] =
     React.useState(false);
   const { merchant, setMerchant } = useMerchantStore();
@@ -141,7 +146,7 @@ const Services = () => {
           layout="vertical"
           form={form}
           className={formStyles.form}
-          disabled={merchant?.status !== 'active'}
+          disabled={merchant?.status !== 'active' || disableForm}
           initialValues={{
             billing: {
               country: 'US',
@@ -188,46 +193,28 @@ const Services = () => {
                 </Form.Item>
               </div>
             </div>
-            <div className={styles.predeterminedAmounts}>
-              <h3>Choose a predetermined amount</h3>
-              <div className={styles.amounts}>
-                <Button
-                  onClick={() => {
-                    form.setFieldsValue({ paymentInfo: { amount: 100.0 } });
-                  }}
-                >
-                  100.00
-                </Button>
-                <Button
-                  onClick={() => {
-                    form.setFieldsValue({ paymentInfo: { amount: 200.0 } });
-                  }}
-                >
-                  200.00
-                </Button>
-                <Button
-                  onClick={() => {
-                    form.setFieldsValue({ paymentInfo: { amount: 300.0 } });
-                  }}
-                >
-                  300.00
-                </Button>
-                <Button
-                  onClick={() => {
-                    form.setFieldsValue({ paymentInfo: { amount: 400.0 } });
-                  }}
-                >
-                  400.00
-                </Button>
-                <Button
-                  onClick={() => {
-                    form.setFieldsValue({ paymentInfo: { amount: 500.0 } });
-                  }}
-                >
-                  500.00
-                </Button>
-              </div>
-            </div>
+            {merchant.servicePageOptions?.predeterminedAmounts?.length &&
+              merchant.servicePageOptions?.predeterminedAmounts?.length > 0 && (
+                <div className={styles.predeterminedAmounts}>
+                  <h3>Choose a predetermined amount</h3>
+                  <div className={styles.amounts}>
+                    {merchant.servicePageOptions?.predeterminedAmounts?.map(
+                      (amount: string) => (
+                        <Button
+                          key={amount}
+                          onClick={() => {
+                            form.setFieldsValue({
+                              paymentInfo: { amount: amount },
+                            });
+                          }}
+                        >
+                          {currencyFormatter(amount)}
+                        </Button>
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
             <Divider orientation="center">Customer Information</Divider>
             <div className={formStyles.form__formGroup}>
               <div className={formStyles.form__inputGroup}>
