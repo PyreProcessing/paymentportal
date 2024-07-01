@@ -36,7 +36,7 @@ const fetchData = async (options?: {
  * @since 1.0
  */
 export default (options?: {
-  key: string;
+  key: string | string[];
   url?: string;
   enabled?: boolean;
   keyword?: string;
@@ -44,12 +44,19 @@ export default (options?: {
   pageLimit?: number;
   filter?: string;
   sort?: string;
+  refetchOnWindowFocus?: boolean;
   // onSuccess is a callback function that will be called on success, to do something with the data
   onSuccess?: (data: any) => void;
   onError?: (error: any) => void;
 }) => {
   const query = useQuery(
-    [options?.key],
+    [
+      typeof options?.key === "string"
+        ? options?.key
+        : // if its an array, remove the array, return both elements as separate strings
+          options?.key[0],
+      options?.key[1],
+    ],
     () =>
       fetchData({
         url: options?.url,
@@ -65,6 +72,7 @@ export default (options?: {
       retry: 1,
       onError: options?.onError,
       enabled: options?.enabled,
+      refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
     }
   );
   return query;

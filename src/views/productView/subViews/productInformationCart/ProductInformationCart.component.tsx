@@ -1,18 +1,16 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams } from 'next/navigation';
-import mockInventory from '@/data/mock-inventory';
 import styles from './index.module.scss';
-import Image from 'next/image';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
-import { Alert, Button, Form, Input, Modal } from 'antd';
-import CustomButton from '@/components/customButton/CustomButton.UI';
+import { Button, Form, Image, Input, Modal } from 'antd';
 import { useCartStore } from '@/state/cart';
 import CartList from '@/components/cartList/CartList.component';
 import useFetchData from '@/state/actions/useFetchData';
 import Error from '@/components/error/Error.component';
 import InventoryType from '@/types/InventoryType';
 import { useMerchantStore } from '@/state/merchant';
+import Carousel from '@/components/Carousel/Carousel.component';
 
 const ProductInformationCart = () => {
   const { id } = useParams();
@@ -93,7 +91,6 @@ const ProductInformationCart = () => {
     data?.payload?.inventory?.quantity > 0 ? 'In stock' : 'Out of stock';
 
   const product = data.payload.inventory as InventoryType;
-
   return (
     <div className={styles.container}>
       {product?.merchant?.status !== 'active' && (
@@ -106,15 +103,15 @@ const ProductInformationCart = () => {
         </div>
       )}
       <div className={styles.leftContainer}>
-        <TitleContainer title={product?.name} />
-        <div className={styles.imageContainer}>
-          <Image
+        <TitleContainer title={product?.name} styles={{}} />
+        {/* <div className=""> */}
+        <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
+        {/* <Image
             src={product?.images?.[0] ?? ''}
             alt={product?.name ?? 'No image'}
             width={400}
             height={400}
-          />
-        </div>
+          /> */}
       </div>
       <div className={styles.contentContainer}>
         <p>{product?.description}</p>

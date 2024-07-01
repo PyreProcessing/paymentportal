@@ -3,6 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+  color: var(--color-primary500);
   .inactiveContainer {
     position: fixed;
     width: 100%;
@@ -27,16 +28,7 @@
     flex: 0.75;
     justify-content: center;
     align-items: center;
-
-    .imageContainer {
-      box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.75);
-      width: 80%;
-      border-radius: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 2%;
-    }
+    position: relative;  
   }
   .contentContainer {
     color: var(--color-primary500);
@@ -45,7 +37,7 @@
       display: flex;
       justify-content: space-between;
     }
-    button{
+    button {
       width: 100%;
     }
   }
