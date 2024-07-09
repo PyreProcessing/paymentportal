@@ -83,6 +83,7 @@ const ProductInformationCart = () => {
       <TitleContainer
         title="Product not found"
         subtitle="The product you are looking for does not exist"
+        styles={styles.titleContainer}
       />
     );
 
@@ -104,14 +105,7 @@ const ProductInformationCart = () => {
       )}
       <div className={styles.leftContainer}>
         <TitleContainer title={product?.name} styles={{}} />
-        {/* <div className=""> */}
         <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
-        {/* <Image
-            src={product?.images?.[0] ?? ''}
-            alt={product?.name ?? 'No image'}
-            width={400}
-            height={400}
-          /> */}
       </div>
       <div className={styles.contentContainer}>
         <p>{product?.description}</p>

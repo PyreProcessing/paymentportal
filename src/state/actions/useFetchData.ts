@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from '@/utils/axios';
 import { useSearchStore as store } from '../search/search';
+import decryptData from '@/utils/decryptData';
 
 const fetchData = async (options?: {
   url?: string;
@@ -19,7 +20,11 @@ const fetchData = async (options?: {
   const { data } = await axios.get(
     `${options?.url}?keyword=${keyword}&pageNumber=${pageNumber}&limit=${pageLimit}&filterOptions=${filter}&sortBy=${sort}`
   );
-  console.log(data);
+  // if the data.payload is a string, attempt to decrypt it
+  if (typeof data.payload === 'string') {
+    data.payload = JSON.parse(decryptData(data.payload));
+    return data;
+  }
   return data;
 };
 
@@ -51,7 +56,7 @@ export default (options?: {
 }) => {
   const query = useQuery(
     [
-      typeof options?.key === "string"
+      typeof options?.key === 'string'
         ? options?.key
         : // if its an array, remove the array, return both elements as separate strings
           options?.key[0],

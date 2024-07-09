@@ -14,7 +14,6 @@ import usePostData from '@/state/actions/usePostData';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { MdOutlineCreditCard, MdOutlineLocalShipping } from 'react-icons/md';
 import { FaClipboardCheck } from 'react-icons/fa';
-import errorHandler from '@/utils/errorHandler';
 import { encryptData } from '@/utils/encryptData';
 import { useParams } from 'next/navigation';
 
@@ -22,7 +21,7 @@ const ProductView = () => {
   // we need to get the payment processor key from the query params
   const { paymentProcessor: paymentProcessorKey } = useParams();
   const { mutate: placeOrder, isLoading: processLoader } = usePostData({
-    url: `/transaction/${paymentProcessorKey}/product`,
+    url: `/transaction/product`,
     key: 'placeOrder',
   });
 
@@ -155,6 +154,7 @@ const ProductView = () => {
         <TitleContainer
           title="Order Placed"
           subtitle="Your order has been placed, keep an eye out in your email for your order details!"
+          styles={styles.titleContainer}
         />
       ),
       hideNextButton: true,
@@ -179,7 +179,11 @@ const ProductView = () => {
   if (processLoader) {
     return (
       <div className={styles.container}>
-        <TitleContainer title="Processing Order" subtitle="Please wait..." />
+        <TitleContainer
+          title="Processing Order"
+          subtitle="Please wait..."
+          styles={styles.titleContainer}
+        />
       </div>
     );
   }

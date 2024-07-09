@@ -48,7 +48,7 @@ const Services = () => {
   });
 
   const { mutate: submitPayment, isLoading: paymentProcessing } = usePostData({
-    url: `/transaction/${paymentProcessor}/${slug}/service`,
+    url: `/transaction/${slug}/service`,
     key: `submit-payment-${slug}`,
     successMessage: `Your payment has been submitted successfully for ${slug}!`,
   });
@@ -75,7 +75,7 @@ const Services = () => {
   };
   React.useEffect(() => {
     if (data?.payload) {
-      setMerchant(JSON.parse(decryptData(data.payload)));
+      setMerchant(data.payload);
     }
   }, [data?.payload]);
 
@@ -88,6 +88,7 @@ const Services = () => {
       <TitleContainer
         title="Payment Successful"
         subtitle="The payment was processed successfully an email receipt will be sent to you!"
+        styles={styles.titleContainer}
       />
     );
 
@@ -193,7 +194,7 @@ const Services = () => {
                 </Form.Item>
               </div>
             </div>
-            {merchant.servicePageOptions?.predeterminedAmounts?.length &&
+            {merchant.servicePageOptions?.predeterminedAmounts &&
               merchant.servicePageOptions?.predeterminedAmounts?.length > 0 && (
                 <div className={styles.predeterminedAmounts}>
                   <h3>Choose a predetermined amount</h3>

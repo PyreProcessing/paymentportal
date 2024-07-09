@@ -8,7 +8,7 @@ import InventoryType from "@/types/InventoryType";
 
 const CartList = () => {
   const { cart, removeProductFromCart } = useCartStore();
-  function tax(price: any, taxRate: any) { return Number((price * taxRate / 100).toFixed(2)); }
+  function tax(price: any, taxRate: any) { return Number(price) * (Number(taxRate) / 100);}
 
   return (
     <div className={styles.container}>
@@ -82,7 +82,7 @@ const CartList = () => {
       {/* total price container */}
       <div className={styles.totalPriceContainer}>
         <h4>Total</h4>
-        <span>${cart.reduce((acc, curr) => acc + (curr.product.price + tax(curr.product.price, curr.product.tax)) * curr.quantity, 0)}</span>
+        <span>${cart.reduce((acc, curr) => acc + (curr.product.price + tax(curr.product.price, curr.product.tax)) * curr.quantity, 0).toFixed(2)}</span>
       </div>
     </div>
   );

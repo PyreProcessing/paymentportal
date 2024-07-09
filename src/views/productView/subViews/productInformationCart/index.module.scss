@@ -28,7 +28,7 @@
     flex: 0.75;
     justify-content: center;
     align-items: center;
-    position: relative;  
+    position: relative;
   }
   .contentContainer {
     color: var(--color-primary500);
@@ -48,4 +48,18 @@
 }
 .danger {
   color: red;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2%;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 20px;
+  h1 {
+    font-size: 1.5rem;
+  }
 }
