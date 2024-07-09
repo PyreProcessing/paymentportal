@@ -1,0 +1,121 @@
+.success {
+  color: green;
+}
+.danger {
+  color: red;
+}
+
+// This is for the item not being available
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2%;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 20px;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 431px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: var(--color-primary500);
+    .inactiveContainer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #47474727;
+      z-index: 5;
+      .titleContainer {
+        width: 100%;
+        padding: 5%;
+        background-color: rgba(var(--color-primary-rgb), 0.75);
+        color: white;
+      }
+    }
+    .itemTitleAndPictureContainer {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      flex: 0.75;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .contentContainer {
+      color: var(--color-primary500);
+
+      .productInformation {
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// Set up based on Dimensions with 430 and below, based on iPhone 14 Pro Max
+@media screen and (max-width: 430px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: var(--color-primary500);
+    position:relative;
+    .inactiveContainer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #47474727;
+      z-index: 5;
+      .titleContainer {
+        width: 100%;
+        padding: 5%;
+        background-color: rgba(var(--color-primary-rgb), 0.75);
+        color: white;
+      }
+    }
+    .itemTitleAndPictureContainer {
+      display: flex;
+      flex-direction: column;
+      width: 95%;
+      gap: 20px;
+      flex: 0.9;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    .contentContainer {
+      color: var(--color-primary500);
+      width: 95%;
+
+      .productInformation {
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+

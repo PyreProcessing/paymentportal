@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useParams } from 'next/navigation';
-import styles from './index.module.scss';
+import styles from './ProductInformationCart.module.scss';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { Button, Form, Image, Input, Modal } from 'antd';
 import { useCartStore } from '@/state/cart';
@@ -94,7 +94,7 @@ const ProductInformationCart = () => {
   const product = data.payload.inventory as InventoryType;
   return (
     <div className={styles.container}>
-      {product?.merchant?.status !== 'active' && (
+      {/* {product?.merchant?.status !== 'active' && (
         <div className={styles.inactiveContainer}>
           <TitleContainer
             title="Processing in Progress"
@@ -102,8 +102,8 @@ const ProductInformationCart = () => {
             styles={styles.titleContainer}
           />
         </div>
-      )}
-      <div className={styles.leftContainer}>
+      )} */}
+      <div className={styles.itemTitleAndPictureContainer}>
         <TitleContainer title={product?.name} styles={{}} />
         <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
       </div>
