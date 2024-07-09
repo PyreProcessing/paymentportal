@@ -39,21 +39,21 @@ const PaymentInformation = () => {
             billing: {
               country: 'US',
               state: 'AL',
-              zipcode: '23444',
-              address: '1234 Main St',
-              city: 'Birmingham',
-              firstName: 'John',
-              lastName: 'Doe',
+              // zipcode: '23444',
+              // address: '1234 Main St',
+              // city: 'Birmingham',
+              // firstName: 'John',
+              // lastName: 'Doe',
             },
             userInfo: {
-              email: 'test@test.com',
-              phoneNumber: '123-456-7890',
+              // email: 'test@test.com',
+              // phoneNumber: '123-456-7890',
             },
             paymentInfo: {
-              nameOnCard: 'John Doe',
-              cardNumber: '5204 9102 1148 2784',
-              expirationDate: '12/23',
-              cvv: '123',
+              // nameOnCard: 'John Doe',
+              // cardNumber: '5204 9102 1148 2784',
+              // expirationDate: '12/23',
+              // cvv: '123',
             },
           }}
         >
