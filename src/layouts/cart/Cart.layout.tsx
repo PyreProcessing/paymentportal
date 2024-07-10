@@ -10,7 +10,7 @@ interface CartProps {
 const Cart = ({ children }: CartProps) => {
   const { step, cartSteps } = useCartStore();
 
-const [width, setWidth] = useState<number>(window.innerWidth);
+const [width, setWidth] = useState<number>(0);
 useEffect(() => {
   const handleResize = () => {
     setWidth(window.innerWidth);
