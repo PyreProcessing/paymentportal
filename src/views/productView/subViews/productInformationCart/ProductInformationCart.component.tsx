@@ -124,6 +124,7 @@ const ProductInformationCart = () => {
           }
           <span>${product?.price.toFixed(2)}</span>
         </div>
+        
         {cart.length > 0 && <CartList />}
 
         <Form

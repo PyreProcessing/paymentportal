@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./index.module.scss";
+import styles from "./CartList.module.scss";
 import { useCartStore } from "@/state/cart";
 import ProductType from "@/types/ProductType";
 import { Avatar, Button, Table } from "antd";
