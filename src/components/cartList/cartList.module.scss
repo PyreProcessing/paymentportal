@@ -13,15 +13,14 @@
   }
 
   .contentContainer {
-    .item {
+    .product {
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
-      .product {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+      .name {
+        font-size: 12px;
+        font-weight: bold;
       }
     }
     .actionsContainer {

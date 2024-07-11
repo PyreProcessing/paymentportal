@@ -30,6 +30,9 @@ const PaymentInformation = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
+      <div className={styles.cartContainer}>
+        <CartList />
+      </div>
         <Form
           layout="vertical"
           className={formStyles.form}
@@ -313,9 +316,6 @@ const PaymentInformation = () => {
             </div>
           </div>
         </Form>
-      </div>
-      <div className={styles.cartContainer}>
-        <CartList />
       </div>
     </div>
   );

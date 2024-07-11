@@ -22,8 +22,8 @@ const CartList = () => {
               key: "name",
               render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.product}>
-                  <Avatar shape="square" size={48} src={record.product.images?.[0]} alt={record.product.name} />
-                  <h4>{record.product.name}</h4>
+                  <Avatar shape="square" size={70} src={record.product.images?.[0]} alt={record.product.name}/>
+                  <div className={styles.name}>{record.product.name}</div>
                 </div>
               ),
             },
