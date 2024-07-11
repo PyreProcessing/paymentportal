@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./index.module.scss";
+import styles from "./Review.module.scss";
 import { useCartStore } from "@/state/cart";
 import formatPhoneNumber from "@/utils/formatPhoneNumber";
 import { Divider, Modal } from "antd";
