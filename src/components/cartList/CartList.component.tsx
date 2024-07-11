@@ -17,25 +17,18 @@ const CartList = () => {
           size="small"
           columns={[
             {
-              title: "",
-              dataIndex: "image",
-              key: "image",
-              render: (value: string, record: { product: InventoryType; quantity: number }) => (
-                <Avatar shape="square" size={48} src={record.product.images?.[0]} alt={record.product.name} />
-              ),
-            },
-            {
               title: "Product",
               dataIndex: "name",
               key: "name",
               render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.product}>
+                  <Avatar shape="square" size={48} src={record.product.images?.[0]} alt={record.product.name} />
                   <h4>{record.product.name}</h4>
                 </div>
               ),
             },
             {
-              title: "Quantity",
+              title: "Qty",
               dataIndex: "quantity",
               key: "quantity",
             },
@@ -48,9 +41,9 @@ const CartList = () => {
               ),
             },
             {
-              title: "Actions",
-              dataIndex: "actions",
-              key: "actions",
+              title: "Delete",
+              dataIndex: "delete",
+              key: "delete",
               render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.actionsContainer}>
                   <FaTimes
