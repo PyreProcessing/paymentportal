@@ -103,10 +103,15 @@ const ProductInformationCart = () => {
           />
         </div>
       )}
-      <div className={styles.itemTitleAndPictureContainer}>
-        <TitleContainer title={product?.name} styles={{}} />
-        <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
+      <div className={styles.contentItem}>
+        <div className={styles.itemTitle}>
+          <TitleContainer title={product?.name} styles={{}} />
+        </div>
+        <div className={styles.itemPicture}>
+          <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
+        </div>
       </div>
+
       <div className={styles.contentContainer}>
         <p>{product?.description}</p>
         <div className={styles.productInformation}>

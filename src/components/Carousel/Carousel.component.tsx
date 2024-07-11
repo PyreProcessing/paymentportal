@@ -56,7 +56,7 @@ const Carousel: React.FC<CarouselProps> = ({ items, showArrows = true }) => {
 
         {/* current item */}
         <div className={`${styles.carouselItem} ${styles.active}`}>
-          <img src={items[currentIndex]} alt="current" />
+          <img src={items[currentIndex]} alt="current"/>
         </div>
 
         {/* Right side of the carousel */}
