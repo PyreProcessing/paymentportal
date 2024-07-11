@@ -1,6 +1,6 @@
 import React from 'react';
 import { Checkbox, Divider, Form, Input, Select } from 'antd';
-import styles from './index.module.scss';
+import styles from './PaymentInformation.module.scss';
 import formStyles from '@/styles/Form.module.scss';
 import formatPhoneNumber from '@/utils/formatPhoneNumber';
 import CartList from '@/components/cartList/CartList.component';
