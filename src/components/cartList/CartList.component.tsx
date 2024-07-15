@@ -20,6 +20,7 @@ const CartList = () => {
               title: "Product",
               dataIndex: "name",
               key: "name",
+              align: "center",
               render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.product}>
                   <Avatar shape="square" size={70} src={record.product.images?.[0]} alt={record.product.name}/>
@@ -31,11 +32,13 @@ const CartList = () => {
               title: "Qty",
               dataIndex: "quantity",
               key: "quantity",
+              align: "center",
             },
             {
               title: "Subtotal",
               dataIndex: "subtotal",
               key: "subtotal",
+              align: "center",
               render: (value: number, record: { product: InventoryType; quantity: number }) => (
                 <span>${(record.product.price * record.quantity).toFixed(2)}</span>
               ),
@@ -44,6 +47,7 @@ const CartList = () => {
               title: "Delete",
               dataIndex: "delete",
               key: "delete",
+              align: "center",
               render: (value: string, record: { product: InventoryType; quantity: number }) => (
                 <div className={styles.actionsContainer}>
                   <FaTimes

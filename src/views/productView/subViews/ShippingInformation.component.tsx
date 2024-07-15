@@ -26,6 +26,12 @@ const ShippingInformation = () => {
         form={form}
         initialValues={{
           country: "United States of America (the)",
+          // firstName: "testFirstName",
+          // lastName: "testLastName",
+          // company: "testCompany",
+          // address: "testAddress",
+          // city: "testCity",
+          // zipcode: "testZip",
         }}
       >
         <div className={formStyles.form__formGroup}>
