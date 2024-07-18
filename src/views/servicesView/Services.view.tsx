@@ -173,8 +173,8 @@ const Services = () => {
             },
           }}
         >
-          <Divider orientation="center">Amount</Divider>
           <div className={formStyles.form__formContainer}>
+            <Divider orientation="center">Amount</Divider>
             <div className={formStyles.form__formGroup}>
               <div className={formStyles.form__inputGroup}>
                 <Form.Item
