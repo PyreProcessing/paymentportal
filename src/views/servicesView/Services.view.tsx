@@ -452,6 +452,29 @@ const Services = () => {
 
             <div className={formStyles.form__formGroup}>
               <div className={formStyles.form__inputGroup}>
+                <div className={styles.policy1}>
+                  <div className={styles.policy2}>
+                    <div className={styles.policy3}>
+                      &quot;By clicking &apos;Accept&apos;, you authorize Pyre
+                      Mountain Processing to securely collect and process the personal
+                      information provided, including but not limited to credit card
+                      details, billing/shipping information, name, email, and phone
+                      number, for the purpose of completing the transaction. You
+                      understand and agree that Pyre Mountain Processing will transmit
+                      the provided data securely to a third-party payment processor
+                      for payment processing purposes. You acknowledge that Pyre
+                      Mountain Processing will retain only the necessary information
+                      for record-keeping purposes, including billing/shipping details
+                      and the last 4 digits of the credit card used. You further
+                      consent to Pyre Mountain Processing&apos;s adherence to
+                      applicable data protection laws and regulations, including but
+                      not limited to the General Data Protection Regulation (GDPR) and
+                      the Payment Card Industry Data Security Standard (PCI DSS). For
+                      more information on how Pyre Mountain Processing handles your
+                      personal data, please refer to our Privacy Policy.&quot;
+                    </div>
+                  </div>
+                </div>
                 <Checkbox
                   checked={agree}
                   onChange={() => {
@@ -461,23 +484,6 @@ const Services = () => {
                 >
                   Accept
                 </Checkbox>
-                &quot;By clicking &apos;Accept&apos;, you authorize Pyre
-                Mountain Processing to securely collect and process the personal
-                information provided, including but not limited to credit card
-                details, billing/shipping information, name, email, and phone
-                number, for the purpose of completing the transaction. You
-                understand and agree that Pyre Mountain Processing will transmit
-                the provided data securely to a third-party payment processor
-                for payment processing purposes. You acknowledge that Pyre
-                Mountain Processing will retain only the necessary information
-                for record-keeping purposes, including billing/shipping details
-                and the last 4 digits of the credit card used. You further
-                consent to Pyre Mountain Processing&apos;s adherence to
-                applicable data protection laws and regulations, including but
-                not limited to the General Data Protection Regulation (GDPR) and
-                the Payment Card Industry Data Security Standard (PCI DSS). For
-                more information on how Pyre Mountain Processing handles your
-                personal data, please refer to our Privacy Policy.&quot;
               </div>
             </div>
             <div className={formStyles.form__buttonContainer}>

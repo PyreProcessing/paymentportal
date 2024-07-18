@@ -66,8 +66,20 @@
         }
       }
     }
+    .policy1 {
+      height: 20vh;
+      position: relative;
+      border: 1px solid;
+      .policy2 {
+        max-height: 100%;
+        overflow: auto;
+        border: 3px solid transparent;
+        .policy3 {
+          height: 100%;
+        }
+      }
+    }
   }
-
 }
 .titleContainer{
   display: flex;
