@@ -123,8 +123,10 @@ const Services = () => {
                 ? merchant?.businessInfo.name + '-logo'
                 : merchant?.businessName + '-logo'
             }
-            width={500}
-            height={250}
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: '100%', height: 'auto' }}
           />
         </div>
         <div className={styles.businessDescription}>
