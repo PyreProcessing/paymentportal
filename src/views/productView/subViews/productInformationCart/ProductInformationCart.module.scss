@@ -1,0 +1,150 @@
+.success {
+  color: green;
+}
+.danger {
+  color: red;
+}
+
+// This is for the item not being available
+.titleContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2%;
+  background-color: var(--color-primary);
+  color: white;
+  border-radius: 20px;
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 769px) {
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: var(--color-primary500);
+    .inactiveContainer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #47474727;
+      z-index: 5;
+      .titleContainer {
+        width: 100%;
+        padding: 5%;
+        background-color: rgba(var(--color-primary-rgb), 0.75);
+        color: white;
+      }
+    }
+    .contentItem {
+      display: flex;
+      flex-direction: column;
+      width: 70%;
+      
+      .itemTitle {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 20px;
+        flex: 0.9;
+        justify-content: center;
+        align-items: center;
+      }
+      .itemPicture {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        gap: 20px;
+        flex: 0.9;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .contentContainer {
+      color: var(--color-primary500);
+
+      .productInformation {
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    color: var(--color-primary500);
+    position: relative;
+    .inactiveContainer {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #47474727;
+      z-index: 5;
+      .titleContainer {
+        width: 100%;
+        padding: 5%;
+        background-color: rgba(var(--color-primary-rgb), 0.75);
+        color: white;
+      }
+    }
+    .contentItem {
+      .itemTitle {
+        font-size: 30px;
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        height: 100%;
+        gap: 20px;
+        flex: 0.9;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+      .itemPicture {
+        display: flex;
+        flex-direction: column;
+        width: 95%;
+        height: 100%;
+        gap: 20px;
+        flex: 0.9;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+      }
+    }
+    .contentContainer {
+      color: var(--color-primary500);
+      width: 95%;
+
+      .productInformation {
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+

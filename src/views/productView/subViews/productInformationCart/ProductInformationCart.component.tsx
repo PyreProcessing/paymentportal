@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { useParams } from 'next/navigation';
-import styles from './index.module.scss';
+import styles from './ProductInformationCart.module.scss';
 import TitleContainer from '@/components/titleContainer/TitleContainer.UI';
 import { Button, Form, Image, Input, Modal } from 'antd';
 import { useCartStore } from '@/state/cart';
@@ -103,10 +103,15 @@ const ProductInformationCart = () => {
           />
         </div>
       )}
-      <div className={styles.leftContainer}>
-        <TitleContainer title={product?.name} styles={{}} />
-        <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
+      <div className={styles.contentItem}>
+        <div className={styles.itemTitle}>
+          <TitleContainer title={product?.name} styles={{}} />
+        </div>
+        <div className={styles.itemPicture}>
+          <Carousel items={product?.images ?? []} showArrows={true}></Carousel>
+        </div>
       </div>
+
       <div className={styles.contentContainer}>
         <p>{product?.description}</p>
         <div className={styles.productInformation}>
@@ -119,6 +124,7 @@ const ProductInformationCart = () => {
           }
           <span>${product?.price.toFixed(2)}</span>
         </div>
+        
         {cart.length > 0 && <CartList />}
 
         <Form

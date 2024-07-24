@@ -1,76 +1,158 @@
-.carousel {
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  // overflow: hidden;
-
-  .arrow {
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 1;
-
-    &:first-of-type {
-      left: 10px;
-    }
-
-    &:last-of-type {
-      right: 10px;
-    }
-  }
-
-  .carouselContent {
+@media screen and (min-width: 431px) {
+  .carousel {
     display: flex;
-    transition: transform 0.5s ease;
-    gap: 10px;
-    width: 100%;
-    height: 300px;
+    align-items: center;
     position: relative;
-    justify-content: center;
-    // transform: translateX(-33.3333%); /* Center the active slide */
-    width: 300%; /* Show 3 items at a time */
-  }
-  .carouselItem {
-    flex: 0 0 33.3333%;
-    opacity: 0;
-    transition: transform 0.5s ease, opacity 0.5s ease;
+    width: 100%;
+    // overflow: hidden;
 
-    &.active {
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-      transform: scale(1);
-      opacity: 1;
+    .arrow {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
       z-index: 1;
-      background-color: white;
-    }
 
-    &.side {
-      transform: scale(0.75) rotateY(10deg);
-      opacity: 0.5;
-      z-index: 0;
-
-      &:nth-of-type(odd) {
-        translate: 75px;
-        // transform: scale(0.75) rotateY(50deg);
-        // if its the last child then rotate the other way
-        &:last-of-type {
-          translate: -75px;
-        }
+      &:first-of-type {
+        left: 10px;
       }
-      
+
+      &:last-of-type {
+        right: 10px;
+      }
     }
 
-    &.hidden {
-      transform: scale(0.8);
-      opacity: 0;
-    }
-
-    img {
+    .carouselContent {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 10px;
       width: 100%;
-      height: 100%;
-      // object-fit: cover;
-      display: block;
+      position: relative;
+      justify-content: center;
+      // transform: translateX(-33.3333%); /* Center the active slide */
+      // width: 300%; /* Show 3 items at a time */
+    }
+    .carouselItem {
+      flex: 0 0 33.3333%;
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+
+      &.active {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        transform: scale(1);
+        opacity: 1;
+        z-index: 1;
+        background-color: white;
+      }
+
+      &.side {
+        transform: scale(0.75) rotateY(10deg);
+        opacity: 0.5;
+        z-index: 0;
+
+        &:nth-of-type(odd) {
+          translate: 75px;
+          // transform: scale(0.75) rotateY(50deg);
+          // if its the last child then rotate the other way
+          &:last-of-type {
+            translate: -75px;
+          }
+        }
+        
+      }
+
+      &.hidden {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      img {
+        width: 150%;
+        height: 100%;
+        // object-fit: cover;
+        transform: translateX(-15%);
+        display: block;
+      }
+    }
+  }
+}
+
+// Set up based on Dimensions with 430 and below, based on iPhone 14 Pro Max
+@media screen and (max-width: 430px) {
+  .carousel {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    // overflow: hidden;
+
+    .arrow {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 1;
+
+      &:first-of-type {
+        left: 10px;
+      }
+
+      &:last-of-type {
+        right: 10px;
+      }
+    }
+
+    .carouselContent {
+      display: flex;
+      transition: transform 0.5s ease;
+      gap: 10px;
+      width: 100%;
+      position: relative;
+      justify-content: center;
+      // transform: translateX(-33.3333%); /* Center the active slide */
+      // width: 300%; /* Show 3 items at a time */
+    }
+    .carouselItem {
+      flex: 0 0 33.3333%;
+      opacity: 0;
+      transition: transform 0.5s ease, opacity 0.5s ease;
+
+      &.active {
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+        transform: scale(1);
+        opacity: 1;
+        z-index: 1;
+        background-color: white;
+      }
+
+      &.side {
+        transform: scale(0.75) rotateY(10deg);
+        opacity: 0.5;
+        z-index: 0;
+
+        &:nth-of-type(odd) {
+          translate: 140px;
+          // transform: scale(0.75) rotateY(50deg);
+          // if its the last child then rotate the other way
+          &:last-of-type {
+            translate: -140px;
+          }
+        }
+        
+      }
+
+      &.hidden {
+        transform: scale(0.8);
+        opacity: 0;
+      }
+
+      img {
+        width: 200%;
+        height: 100%;
+        // object-fit: cover;
+        transform: translateX(-24%);
+        display: block;
+      }
     }
   }
 }

@@ -15,12 +15,9 @@ import { ShoppingCartOutlined } from '@ant-design/icons';
 import { MdOutlineCreditCard, MdOutlineLocalShipping } from 'react-icons/md';
 import { FaClipboardCheck } from 'react-icons/fa';
 import { encryptData } from '@/utils/encryptData';
-import { useParams } from 'next/navigation';
 
 const ProductView = () => {
-  // we need to get the payment processor key from the query params
-  const { paymentProcessor: paymentProcessorKey } = useParams();
-  const { mutate: placeOrder, isLoading: processLoader } = usePostData({
+  const { mutate: placeOrder, isPending: processLoader } = usePostData({
     url: `/transaction/product`,
     key: 'placeOrder',
   });
@@ -42,6 +39,7 @@ const ProductView = () => {
     shippingInformationValues,
     userInformationValues,
     setCartSteps,
+    cartId,
   } = useCartStore();
   const steps = [
     {
@@ -128,6 +126,7 @@ const ProductView = () => {
                 data: encryptData(
                   JSON.stringify({
                     cart: cart,
+                    cartId: cartId,
                     user: userInformationValues,
                     payment: paymentInformationValues,
                     billing: billingInformationValues,
@@ -138,6 +137,8 @@ const ProductView = () => {
               {
                 onSuccess: () => {
                   advanceToNextSignUpStep();
+                  // remove the cart from localStorage
+                  localStorage.removeItem('cart');
                 },
               }
             );

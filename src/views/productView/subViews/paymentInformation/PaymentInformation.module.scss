@@ -1,6 +1,10 @@
+@import '@/styles/globals.scss';
 .container {
   display: flex;
 
+  @include tablet{
+    flex-direction: column-reverse;
+  }
   .formContainer {
     flex: 1;
     padding: 2%;

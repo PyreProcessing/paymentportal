@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 10px 0;
+  padding: 5%;
+  width: 100%;
+  .header {
+    display: flex;
+    padding: 10px 0;
+    justify-content: space-between;
+    // border-bottom: 1px solid var(--color-primary50);
+  }
+
+  .contentContainer {
+    .product {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .name {
+        font-size: 12px;
+        font-weight: bold;
+      }
+    }
+    .actionsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .remove {
+        color: red;
+      }
+    }
+  } 
+}

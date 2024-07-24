@@ -1,17 +1,38 @@
-.container {
-  border: 1px solid white;
-  min-height: 30rem;
-  margin: 0 auto;
-  background-color: white;
-  padding: 2%;
-  display: flex;
-  flex-direction: column;
-  border-radius: 20px;
-
-  .stepsContainer {
+@media screen and (min-width: 768px) {
+  .container {
+    border: 1px solid white;
+    min-height: 30rem;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2%;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    
+    flex-direction: column;
+    border-radius: 20px;
+  
+    .stepsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+// Set up based on Dimensions with 430 and below, based on iPhone 14 Pro Max
+@media screen and (max-width: 767px) {
+  .container {
+    border: 1px solid white;
+    min-height: 30rem;
+    margin: 0 auto;
+    background-color: white;
+    padding: 2%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+  
+    .stepsContainer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
