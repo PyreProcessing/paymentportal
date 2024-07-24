@@ -1,10 +1,13 @@
-import InventoryType from "@/types/InventoryType";
-import ProductType from "@/types/ProductType";
-import { Fragment } from "react";
-import { create } from "zustand";
+import InventoryType from '@/types/InventoryType';
+import ProductType from '@/types/ProductType';
+import decryptData from '@/utils/decryptData';
+import { encryptData } from '@/utils/encryptData';
+import { Fragment } from 'react';
+import { create } from 'zustand';
 
 interface Layout {
   step: number;
+  cartId?: string;
   cart: [{ product: InventoryType; quantity: number }] | [];
   cartSteps: [{ title: string; icon: any }];
   isGoingToPreviousStep: boolean;
@@ -26,11 +29,14 @@ interface Layout {
   setCurrentForm: (form: any) => void;
   // setCartSteps is a function that takes an array of objects that have a tile and icon property
   setCartSteps: (steps: [{ title: string; icon: any }]) => void;
+  initializeCart: () => void;
+  setCartId: (cartId: string) => void;
 }
 
 export const useCartStore = create<Layout>((set) => ({
   step: 0,
   cart: [],
+  cartId: undefined,
   cartSteps: [] as any,
   isGoingToPreviousStep: false,
   signUpErrorDetected: false,
@@ -40,11 +46,20 @@ export const useCartStore = create<Layout>((set) => ({
   shippingInformationValues: {},
   userInformationValues: {},
   // setCartSteps is a function that takes an array of objects that have a tile and icon property
-  setCartSteps: (steps: [{ title: string; icon: any }]) => set({ cartSteps: steps }),
-  setUserInformationValues: (values: any) => set({ userInformationValues: values }),
-  setPaymentInformationValues: (values: any) => set({ paymentInformationValues: values }),
+  setCartId(cartId) {
+    set({ cartId });
+  },
+  setCartSteps: (steps: [{ title: string; icon: any }]) =>
+    set({ cartSteps: steps }),
+  setUserInformationValues: (values: any) =>
+    set({ userInformationValues: values }),
+  setPaymentInformationValues: (values: any) =>
+    set({ paymentInformationValues: values }),
   setStep: (step: number) => set({ step }),
-  setCart: (cart: [{ product: InventoryType; quantity: number }] | []) => set({ cart }),
+  setCart: (cart: [{ product: InventoryType; quantity: number }] | []) => {
+    localStorage.setItem('cart', encryptData(JSON.stringify(cart)));
+    set({ cart });
+  },
   goBackToPreviousSignUpStep: () => {
     set((state: any) => {
       return {
@@ -66,11 +81,25 @@ export const useCartStore = create<Layout>((set) => ({
   removeProductFromCart: (productId: string) => {
     set((state: any) => {
       return {
-        cart: state.cart.filter((item: { product: InventoryType; quantity: number }) => item.product._id !== productId),
+        cart: state.cart.filter(
+          (item: { product: InventoryType; quantity: number }) =>
+            item.product._id !== productId
+        ),
       };
     });
   },
   setCurrentForm: (form: any) => set({ currentForm: form }),
-  setBillingInformationValues: (values: any) => set({ billingInformationValues: values }),
-  setShippingInformationValues: (values: any) => set({ shippingInformationValues: values }),
+  setBillingInformationValues: (values: any) =>
+    set({ billingInformationValues: values }),
+  setShippingInformationValues: (values: any) =>
+    set({ shippingInformationValues: values }),
+  initializeCart: () => {
+    if (typeof window !== 'undefined' && localStorage.getItem('cart')) {
+      const cart = JSON.parse(
+        decryptData(localStorage.getItem('cart') as string)
+      );
+      set({ cart });
+      set({ step: 1 });
+    }
+  },
 }));
