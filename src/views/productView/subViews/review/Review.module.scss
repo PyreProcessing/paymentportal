@@ -1,4 +1,4 @@
-@media screen and (min-width: 431px) {
+@media screen and (min-width: 541px) {
   .container {
     color: var(--color-primary900);
     display: flex;
@@ -23,11 +23,12 @@
   }
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 540px) {
   .container {
     color: var(--color-primary900);
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 2%;
     .cartInformation {
       display: flex;

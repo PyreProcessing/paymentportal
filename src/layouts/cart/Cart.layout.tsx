@@ -61,8 +61,8 @@ const Cart = ({ children }: CartProps) => {
             cartSteps.map((step) => {
               // Don't know why not working:
               // return { title: "", icon: step.icon } ? (width < 768) : { title: step.title, icon: step.icon };
-              if (width < 768) {
-                return { title: '', icon: step.icon };
+              if (width < 540) {
+                return { title: "", icon: step.icon };
               }
               return { title: step.title, icon: step.icon };
             }) as any

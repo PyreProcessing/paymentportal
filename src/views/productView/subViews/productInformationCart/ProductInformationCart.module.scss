@@ -20,7 +20,7 @@
   }
 }
 
-@media screen and (min-width: 431px) {
+@media screen and (min-width: 769px) {
   .container {
     display: flex;
     justify-content: center;
@@ -82,8 +82,7 @@
   }
 }
 
-// Set up based on Dimensions with 430 and below, based on iPhone 14 Pro Max
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 768px) {
   .container {
     display: flex;
     flex-direction: column;
