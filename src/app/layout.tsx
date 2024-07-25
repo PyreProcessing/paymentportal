@@ -6,6 +6,7 @@ import ReactQueryProvider from '@/providers/ReactQueryProvider';
 import styles from './page.module.scss';
 import Cart from '@/layouts/cart/Cart.layout';
 import Footer from '@/layouts/footer/Footer.layout';
+import { Suspense } from 'react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
@@ -41,7 +42,9 @@ export default function RootLayout({
         />
         <ReactQueryProvider>
           <div className={styles.container}>
-            <Cart>{children}</Cart>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Cart>{children}</Cart>
+            </Suspense>
             <Footer />
           </div>
         </ReactQueryProvider>

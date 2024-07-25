@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styles from './page.module.scss';
 
 import { Metadata } from 'next';
@@ -19,9 +19,11 @@ export const metadata: Metadata = {
 };
 const NotFound = () => {
   return (
-      <div className={styles.container}>
+    <div className={styles.container}>
+      <Suspense fallback={<div>Loading...</div>}>
         <NotFoundComponent />
-      </div>
+      </Suspense>
+    </div>
   );
 };
 

@@ -47,7 +47,7 @@ const Services = () => {
     key: `merchant-services-${slug}`,
   });
 
-  const { mutate: submitPayment, isLoading: paymentProcessing } = usePostData({
+  const { mutate: submitPayment, isPending: paymentProcessing } = usePostData({
     url: `/transaction/${slug}/service`,
     key: `submit-payment-${slug}`,
     successMessage: `Your payment has been submitted successfully for ${slug}!`,
