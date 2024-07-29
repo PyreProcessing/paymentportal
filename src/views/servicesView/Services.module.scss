@@ -67,7 +67,7 @@
       }
     }
     .policy1 {
-      height: 20vh;
+      height: min(20vh, 125px);
       position: relative;
       border: 1px solid;
       .policy2 {
