@@ -50,19 +50,16 @@ export default (options?: {
   filter?: string;
   sort?: string;
   refetchOnWindowFocus?: boolean;
-  // onSuccess is a callback function that will be called on success, to do something with the data
-  onSuccess?: (data: any) => void;
-  onError?: (error: any) => void;
 }) => {
-  const query = useQuery(
-    [
-      typeof options?.key === 'string'
-        ? options?.key
-        : // if its an array, remove the array, return both elements as separate strings
-          options?.key[0],
-      options?.key[1],
-    ],
-    () =>
+  const key =
+    typeof options?.key === 'string'
+      ? [options?.key]
+      : // if its an array, remove the array, return both elements as separate strings
+        // example ["key1", "key2"] => "key1", "key2"
+        options?.key.map((key) => key) || [];
+  const query = useQuery({
+    queryKey: key,
+    queryFn: () =>
       fetchData({
         url: options?.url,
         defaultFilter: options?.filter,
@@ -71,14 +68,12 @@ export default (options?: {
         defaultPageNumber: options?.pageNumber,
         defaultSort: options?.sort,
       }),
-    {
-      onSuccess: options?.onSuccess,
-      // refetchInterval: 2000,
-      retry: 1,
-      onError: options?.onError,
-      enabled: options?.enabled,
-      refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
-    }
-  );
+    meta: {
+      errorMessage: 'An error occurred while fetching data',
+    },
+    refetchOnWindowFocus: options?.refetchOnWindowFocus || false,
+    retry: 1,
+    enabled: options?.enabled,
+  });
   return query;
 };

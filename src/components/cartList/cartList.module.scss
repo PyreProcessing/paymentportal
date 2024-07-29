@@ -1,10 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--color-primary800);
-  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   margin: 10px 0;
   padding: 5%;
+  width: 100%;
   .header {
     display: flex;
     padding: 10px 0;
@@ -32,12 +33,5 @@
         color: red;
       }
     }
-  }
-  .shippingPriceContainer, .totalPriceContainer, .taxContainer {
-    color: var(--color-primary800);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid var(--color-primary900);
-  }
+  } 
 }

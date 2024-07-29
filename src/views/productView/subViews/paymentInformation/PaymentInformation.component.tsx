@@ -30,9 +30,6 @@ const PaymentInformation = () => {
   return (
     <div className={styles.container}>
       <div className={styles.formContainer}>
-      <div className={styles.cartContainer}>
-        <CartList />
-      </div>
         <Form
           layout="vertical"
           className={formStyles.form}
@@ -42,21 +39,21 @@ const PaymentInformation = () => {
             billing: {
               country: 'US',
               state: 'AL',
-              // zipcode: '23444',
-              // address: '1234 Main St',
-              // city: 'Birmingham',
-              // firstName: 'John',
-              // lastName: 'Doe',
+              zipcode: '23444',
+              address: '1234 Main St',
+              city: 'Birmingham',
+              firstName: 'John',
+              lastName: 'Doe',
             },
             userInfo: {
-              // email: 'test@test.com',
-              // phoneNumber: '123-456-7890',
+              email: 'test@test.com',
+              phoneNumber: '123-456-7890',
             },
             paymentInfo: {
-              // nameOnCard: 'John Doe',
-              // cardNumber: '5204 9102 1148 2784',
-              // expirationDate: '12/23',
-              // cvv: '123',
+              nameOnCard: 'John Doe',
+              cardNumber: '5204 9102 1148 2784',
+              expirationDate: '12/23',
+              cvv: '123',
             },
           }}
         >
@@ -316,6 +313,9 @@ const PaymentInformation = () => {
             </div>
           </div>
         </Form>
+      </div>
+      <div className={styles.cartContainer}>
+        <CartList />
       </div>
     </div>
   );
