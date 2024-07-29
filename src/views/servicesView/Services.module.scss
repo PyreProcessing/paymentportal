@@ -37,13 +37,10 @@
     width: 80%;
 
     // create an inset shadow to give the container a 3D effect
-
     .businessDescription {
       margin: 2%;
       text-align: center;
 
-      h1 {
-      }
       p {
         font-size: 0.9rem;
       }
@@ -69,8 +66,20 @@
         }
       }
     }
+    .policy1 {
+      height: min(20vh, 125px);
+      position: relative;
+      border: 1px solid;
+      .policy2 {
+        max-height: 100%;
+        overflow: auto;
+        border: 3px solid transparent;
+        .policy3 {
+          height: 100%;
+        }
+      }
+    }
   }
-
 }
 .titleContainer{
   display: flex;
