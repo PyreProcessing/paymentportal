@@ -5,8 +5,7 @@ import { useMerchantStore } from '@/state/merchant';
 
 const LegalLinks = () => {
   // pull out the merchant from the request
-  const { merchant } = useMerchantStore();
-  console.log(merchant);
+  const { merchant } = useMerchantStore(); 
   return (
     <div className={styles.linksContainer}>
       {merchant?.businessInfo && merchant?.businessInfo?.refundPolicy && (

@@ -15,7 +15,7 @@ import {
   Skeleton,
   message,
 } from 'antd';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import Image from 'next/image';
 import UserType from '@/types/UserType';
 import formatCardNumber from '@/utils/formatCardNumber';
@@ -30,11 +30,21 @@ import { useSearchParams } from 'next/navigation';
 import currencyFormatter from '@/utils/currencyFormatter';
 
 const Services = () => {
+  const router = useRouter();
   const query = useSearchParams();
   // get the slug from the url
   const { slug, paymentProcessor } = useParams();
   // pull out query params
   const disableForm = query.get('disableForm') === 'true';
+  // pull out the amount, webhookuri and redirecturi from the query params
+  const amount = query.get('amount');
+  const webhookUri = query.get('webhookuri');
+  const redirectUri = query.get('redirecturi');
+
+  const { mutate: fireWebhook } = usePostData({
+    url: `${webhookUri}`,
+    key: `webhook-${webhookUri}`,
+  });
   const [form] = Form.useForm();
   const [agree, setAgree] = React.useState(false);
   const [successfulTransaction, setSuccessfulTransaction] =
@@ -66,8 +76,26 @@ const Services = () => {
           data: encryptData(JSON.stringify(form.getFieldsValue())),
         },
         {
-          onSuccess: () => {
-            setSuccessfulTransaction(true);
+          onSuccess: (data) => {
+            // if there is a webhook uri and redirect uri, fire the webhook and redirect to the redirect uri, after successful payment
+            if (webhookUri && redirectUri) {
+              fireWebhook(
+                {
+                  data: JSON.stringify(data),
+                },
+                {
+                  onSuccess: () => {
+                    window.location.href = redirectUri;
+                  },
+                }
+              );
+            }
+            // if there is only a redirect uri, redirect to the redirect uri, after successful payment
+            else if (redirectUri) {
+              window.location.href = redirectUri;
+            } else {
+              setSuccessfulTransaction(true);
+            }
           },
         }
       );
@@ -78,6 +106,14 @@ const Services = () => {
       setMerchant(data.payload);
     }
   }, [data?.payload]);
+
+  React.useEffect(() => {
+    if (amount) {
+      form.setFieldsValue({
+        paymentInfo: { amount: amount },
+      });
+    }
+  }, [amount]);
 
   if (isLoading || paymentProcessing)
     return <Skeleton active paragraph={{ rows: 4 }} />;
@@ -164,10 +200,10 @@ const Services = () => {
             },
             paymentInfo: {
               // amount: 100.0,
-              // nameOnCard: 'John Doe',
-              // cardNumber: '5204 9102 1148 2784',
-              // expirationDate: '12/23',
-              // cvv: '123',
+              nameOnCard: 'John Doe',
+              cardNumber: '5204 9102 1148 2784',
+              expirationDate: '12/23',
+              cvv: '123',
             },
           }}
         >
@@ -190,11 +226,14 @@ const Services = () => {
                     }
                     parser={(value) => value?.replace(/\$\s?|(,*)/g, '') ?? ''}
                     style={{ width: '100%' }}
+                    // ensure that the amount cannot be changed if the amount is passed in as a query param
+                    disabled={!!amount}
                   />
                 </Form.Item>
               </div>
             </div>
-            {merchant.servicePageOptions?.predeterminedAmounts &&
+            {!amount &&
+              merchant.servicePageOptions?.predeterminedAmounts &&
               merchant.servicePageOptions?.predeterminedAmounts?.length > 0 && (
                 <div className={styles.predeterminedAmounts}>
                   <h3>Choose a predetermined amount</h3>

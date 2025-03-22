@@ -29,7 +29,7 @@ const fetchData = async (options?: {
 };
 
 /**
- * @description - custom hook to retrieve user videos from the api
+ * @description - custom hook to retrieve information from api
  * @param keyword - search keyword
  * @param pageNumber - page number, used for pagination
  * @param onSuccess  - callback function to be called on success
